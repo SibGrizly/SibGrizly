@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SibGrizly Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-red: #d32f2f;
+            --dark-red: #b71c1c;
+            --light-red: #ff5252;
+            --primary-black: #121212;
+            --dark-gray: #1e1e1e;
+            --light-gray: #333;
+            --text-light: #f5f5f5;
+            --text-gray: #aaa;
+        }
+        
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, var(--dark-red) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, var(--primary-red) 0%, transparent 30%);
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary-red);
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            background-color: var(--primary-red);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        }
+        
+        .logo-text h1 {
+            font-size: 32px;
+            background: linear-gradient(to right, var(--light-red), var(--primary-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .logo-text p {
+            color: var(--text-gray);
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(211, 47, 47, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--primary-red);
+        }
+        
+        .security-badge i {
+            color: var(--light-red);
+            font-size: 20px;
+        }
+        
+        /* Main Content */
+        .payment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 992px) {
+            .payment-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .qris-section {
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-red);
+        }
+        
+        .section-title i {
+            color: var(--light-red);
+        }
+        
+        .qris-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .qris-image {
+            width: 250px;
+            height: 250px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 15px;
+            border: 2px solid var(--primary-red);
+        }
+        
+        .qris-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .qris-info {
+            text-align: center;
+            background-color: rgba(211, 47, 47, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+        }
+        
+        .qris-info p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+        
+        /* Payment Methods */
+        .methods-section {
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .method {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .method:hover {
+            transform: translateY(-5px);
+            border-left-color: var(--primary-red);
+            background-color: rgba(211, 47, 47, 0.1);
+        }
+        
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--light-red);
+        }
+        
+        .method-details {
+            flex: 1;
+        }
+        
+        .method-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .method-name h3 {
+            font-size: 18px;
+        }
+        
+        .method-number {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .method-account {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+        
+        .copy-btn {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--dark-red);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--light-gray);
+            margin-top: 30px;
+            color: var(--text-gray);
+        }
+        
+        .payment-steps {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            max-width: 200px;
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--dark-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--light-red);
+        }
+        
+        .step p {
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-red);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .payment-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+            }
+            
+            .method {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .copy-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-paw"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>SibGrizly</h1>
+                    <p>PAYMENT GATEWAY</p>
+                </div>
+            </div>
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Payment Terjamin & Aman</span>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="payment-container">
+            <!-- QRIS Section -->
+            <section class="qris-section">
+                <div class="section-title">
+                    <i class="fas fa-qrcode"></i>
+                    <h2>QRIS Payment</h2>
+                </div>
+                <div class="qris-container">
+                    <div class="qris-image pulse">
+                        <img src="https://files.catbox.moe/b3xttn.png" alt="QRIS SibGrizly">
+                    </div>
+                    <div class="qris-info">
+                        <p><i class="fas fa-info-circle"></i> Scan QRIS di atas menggunakan aplikasi e-wallet atau mobile banking yang mendukung QRIS</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Payment Methods -->
+            <section class="methods-section">
+                <div class="section-title">
+                    <i class="fas fa-money-check-alt"></i>
+                    <h2>Metode Pembayaran Lainnya</h2>
+                </div>
+                <div class="payment-methods">
+                    <!-- OVO -->
+                    <div class="method">
+                        <div class="method-icon">
+                            <i class="fab fa-ovo"></i>
+                        </div>
+                        <div class="method-details">
+                            <div class="method-name">
+                                <h3>OVO</h3>
+                            </div>
+                            <div class="method-number">087762133437</div>
+                            <div class="method-account">a/n SIBRA AMULISI</div>
+                        </div>
+                        <button class="copy-btn" data-number="087762133437">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    
+                    <!-- Dana -->
+                    <div class="method">
+                        <div class="method-icon">
+                            <i class="fab fa-d-and-d"></i>
+                        </div>
+                        <div class="method-details">
+                            <div class="method-name">
+                                <h3>Dana</h3>
+                            </div>
+                            <div class="method-number">087762133437</div>
+                            <div class="method-account">a/n SIBRA AMULISI</div>
+                        </div>
+                        <button class="copy-btn" data-number="087762133437">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    
+                    <!-- Gopay -->
+                    <div class="method">
+                        <div class="method-icon">
+                            <i class="fab fa-google-wallet"></i>
+                        </div>
+                        <div class="method-details">
+                            <div class="method-name">
+                                <h3>Gopay</h3>
+                            </div>
+                            <div class="method-number">087862600313</div>
+                            <div class="method-account">a/n SIBRA AMULISI</div>
+                        </div>
+                        <button class="copy-btn" data-number="087862600313">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    
+                    <!-- ShopeePay -->
+                    <div class="method">
+                        <div class="method-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="method-details">
+                            <div class="method-name">
+                                <h3>ShopeePay</h3>
+                            </div>
+                            <div class="method-number">087862600313</div>
+                            <div class="method-account">a/n SIBRA AMULISI</div>
+                        </div>
+                        <button class="copy-btn" data-number="087862600313">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    
+                    <!-- SeaBank -->
+                    <div class="method">
+                        <div class="method-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="method-details">
+                            <div class="method-name">
+                                <h3>SeaBank</h3>
+                            </div>
+                            <div class="method-number">901125967718</div>
+                            <div class="method-account">a/n SIBRA AMULISI</div>
+                        </div>
+                        <button class="copy-btn" data-number="901125967718">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    
+                    <!-- Bank Jago -->
+                    <div class="method">
+                        <div class="method-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="method-details">
+                            <div class="method-name">
+                                <h3>Bank Jago</h3>
+                            </div>
+                            <div class="method-number">102672395274</div>
+                            <div class="method-account">a/n SIBRA AMULISI</div>
+                        </div>
+                        <button class="copy-btn" data-number="102672395274">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="payment-steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <p>Pilih metode pembayaran yang tersedia</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-money-bill-transfer"></i>
+                    </div>
+                    <p>Transfer sesuai nominal pesanan anda</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <p>Kirim bukti transfer ke admin untuk konfirmasi</p>
+                </div>
+            </div>
+            
+            <p>&copy; 2023 SibGrizly Payment Gateway. Semua transaksi dilindungi dan terjamin keamanannya.</p>
+            <p style="margin-top: 10px; font-size: 12px;">Untuk bantuan lebih lanjut, hubungi admin melalui kontak yang tersedia.</p>
+        </footer>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <strong>Berhasil!</strong> Nomor telah disalin ke clipboard.
+    </div>
+    
+    <script>
+        // Copy to clipboard functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const number = this.getAttribute('data-number');
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(number).then(() => {
+                    // Show notification
+                    const notification = document.getElementById('notification');
+                    notification.classList.add('show');
+                    
+                    // Change button text temporarily
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Tersalin';
+                    this.style.backgroundColor = '#4CAF50';
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.style.backgroundColor = '';
+                    }, 2000);
+                    
+                    // Hide notification after 3 seconds
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 3000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Gagal menyalin nomor. Silahkan salin secara manual.');
+                });
+            });
+        });
+        
+        // Add pulse animation to QRIS every 5 seconds
+        setInterval(() => {
+            const qrisImage = document.querySelector('.qris-image');
+            qrisImage.classList.remove('pulse');
+            void qrisImage.offsetWidth; // Trigger reflow
+            qrisImage.classList.add('pulse');
+        }, 5000);
+        
+        // Add hover effect to payment methods
+        document.querySelectorAll('.method').forEach(method => {
+            method.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            method.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
