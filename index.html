@@ -3,1417 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIBGRIZLY | Gift BB Coin Advance Server MLBB</title>
+    <title>SIBGRIZLY - Gift BBCoin Advance Server MLBB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-red: #ff0033;
-            --neon-orange: #ff6600;
-            --neon-yellow: #ffcc00;
-            --cyber-black: #0a0a0f;
-            --cyber-dark: #12121a;
-            --cyber-gray: #1e1e2d;
-            --cyber-light: #2a2a3d;
-            --cyber-white: #f0f0ff;
-            --cyber-blue: #00a6ff;
-            --cyber-purple: #9d00ff;
-            --glow-red: rgba(255, 0, 51, 0.8);
-            --glow-orange: rgba(255, 102, 0, 0.8);
-            --glow-yellow: rgba(255, 204, 0, 0.8);
-            --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --transition-quick: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --primary-red: #D32F2F;
+            --dark-red: #B71C1C;
+            --black: #121212;
+            --gray: #2C2C2C;
+            --white: #FFFFFF;
+            --orange: #FF9800;
+            --light-orange: #FFB74D;
+            --shadow: rgba(0, 0, 0, 0.5);
         }
 
         body {
-            font-family: 'Exo 2', sans-serif;
-            background-color: var(--cyber-black);
-            color: var(--cyber-white);
+            background-color: var(--black);
+            color: var(--white);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Futuristic Animated Background */
-        .cyber-background {
+        /* Animated background */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
-            overflow: hidden;
-        }
-
-        /* Cyber Grid */
-        .cyber-grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(to right, rgba(255, 0, 51, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 102, 0, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: grid-move 40s linear infinite;
-        }
-
-        /* Animated Hexagon Pattern */
-        .hexagon-pattern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(255, 0, 51, 0.05) 2px, transparent 2px),
-                radial-gradient(circle at 75% 75%, rgba(255, 102, 0, 0.05) 2px, transparent 2px);
-            background-size: 100px 100px;
-            animation: hexagon-rotate 120s linear infinite;
-        }
-
-        /* Animated Neon Lines */
-        .neon-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .neon-line {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
-            height: 1px;
-            width: 100%;
-            filter: blur(1px);
-            animation: neon-scan 8s linear infinite;
-        }
-
-        .neon-line:nth-child(1) { top: 20%; animation-delay: 0s; }
-        .neon-line:nth-child(2) { top: 40%; animation-delay: 2s; }
-        .neon-line:nth-child(3) { top: 60%; animation-delay: 4s; }
-        .neon-line:nth-child(4) { top: 80%; animation-delay: 6s; }
-
-        /* Particle System */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
-        /* Glitch Effect Overlay */
-        .glitch-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(rgba(255, 0, 51, 0.02), transparent 2px),
-                linear-gradient(90deg, rgba(255, 102, 0, 0.02), transparent 2px);
-            background-size: 4px 4px;
-            pointer-events: none;
             z-index: -1;
-            opacity: 0.5;
-            animation: glitch-flicker 5s infinite;
+            background: 
+                linear-gradient(45deg, var(--black) 25%, transparent 25%, transparent 75%, var(--black) 75%),
+                linear-gradient(45deg, var(--black) 25%, transparent 25%, transparent 75%, var(--black) 75%),
+                linear-gradient(to bottom, var(--dark-red), var(--black));
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            background-position: 0 0, 20px 20px, 0 0;
+            animation: moveBackground 20s linear infinite;
         }
 
-        /* Animations */
-        @keyframes grid-move {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(60px, 60px); }
-        }
-
-        @keyframes hexagon-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes neon-scan {
-            0% { transform: translateX(-100%); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(100%); opacity: 0; }
-        }
-
-        @keyframes glitch-flicker {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.7; }
-        }
-
-        @keyframes pulse-neon {
-            0%, 100% { 
-                text-shadow: 0 0 10px var(--glow-red), 0 0 20px var(--glow-red);
-                box-shadow: 0 0 20px var(--glow-red);
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0, 20px 20px, 0 0;
             }
-            50% { 
-                text-shadow: 0 0 20px var(--glow-orange), 0 0 40px var(--glow-orange), 0 0 60px var(--glow-orange);
-                box-shadow: 0 0 30px var(--glow-orange), 0 0 60px var(--glow-orange);
+            100% {
+                background-position: 40px 40px, 60px 60px, 0 0;
             }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 5px var(--glow-red)); }
-            50% { filter: drop-shadow(0 0 15px var(--glow-orange)); }
-        }
-
-        @keyframes slide-up {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Main Container */
+        /* Container */
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
             z-index: 1;
+            position: relative;
         }
 
         /* Header */
-        .cyber-header {
+        header {
             text-align: center;
-            padding: 40px 0 30px;
-            margin-bottom: 40px;
-            position: relative;
-            animation: slide-up 1s ease-out;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--orange);
+            background: rgba(179, 44, 44, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
 
-        .header-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 300px;
-            background: radial-gradient(ellipse at center, rgba(255, 0, 51, 0.2) 0%, transparent 70%);
-            filter: blur(60px);
-            z-index: -1;
-        }
-
-        .logo-wrapper {
+        .logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
 
         .logo-icon {
-            font-size: 4rem;
-            color: var(--neon-red);
-            margin-right: 20px;
-            filter: drop-shadow(0 0 15px var(--glow-red));
-            animation: glow 3s infinite alternate;
+            color: var(--orange);
+            font-size: 2.8rem;
+            margin-right: 15px;
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
         }
 
-        .logo-text {
-            font-family: 'Oxanium', sans-serif;
-            font-weight: 900;
-            font-size: 3.5rem;
-            background: linear-gradient(to right, var(--neon-red), var(--neon-orange), var(--neon-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 0, 51, 0.5);
+        h1 {
+            color: var(--white);
+            font-size: 2.8rem;
+            text-transform: uppercase;
             letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.8);
         }
 
-        .logo-text::after {
-            content: 'SIBGRIZLY';
-            position: absolute;
-            left: 2px;
-            top: 2px;
-            background: linear-gradient(to right, var(--neon-red), var(--neon-orange), var(--neon-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            z-index: -1;
-            opacity: 0.7;
-            filter: blur(3px);
+        h1 span {
+            color: var(--orange);
         }
 
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--cyber-white);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            font-weight: 300;
+        .tagline {
+            color: var(--light-orange);
+            font-size: 1.2rem;
+            font-weight: 500;
         }
 
-        .highlight {
-            background: linear-gradient(to right, var(--neon-red), var(--neon-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
-        }
-
-        /* Main Layout */
-        .cyber-layout {
+        /* Main layout */
+        .main-content {
             display: grid;
-            grid-template-columns: 1.1fr 1.5fr;
-            gap: 40px;
-            margin-bottom: 50px;
-            animation: slide-up 1.2s ease-out 0.2s both;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
-        @media (max-width: 1200px) {
-            .cyber-layout {
+        @media (max-width: 992px) {
+            .main-content {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Cyber Card */
-        .cyber-card {
-            background: rgba(18, 18, 26, 0.8);
-            border-radius: 20px;
-            padding: 35px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 0, 51, 0.2);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: var(--transition-smooth);
-            position: relative;
+        /* Cards */
+        .card {
+            background: rgba(44, 44, 44, 0.85);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 152, 0, 0.3);
             overflow: hidden;
-            z-index: 1;
+            position: relative;
         }
 
-        .cyber-card::before {
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(to right, var(--neon-red), var(--neon-orange), var(--neon-yellow));
-            z-index: 2;
+            background: linear-gradient(90deg, var(--primary-red), var(--orange));
         }
 
-        .cyber-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transition: 0.6s;
-            z-index: -1;
-        }
-
-        .cyber-card:hover::after {
-            left: 100%;
-        }
-
-        .cyber-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 0, 51, 0.5);
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.7),
-                0 0 30px rgba(255, 0, 51, 0.3);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--neon-red), var(--neon-orange));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
+        .card h2 {
+            color: var(--orange);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 152, 0, 0.3);
             font-size: 1.8rem;
-            color: var(--cyber-white);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.5);
-        }
-
-        .card-title {
-            font-family: 'Oxanium', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--cyber-white);
-            letter-spacing: 1px;
-        }
-
-        /* Form Styling */
-        .cyber-form-group {
-            margin-bottom: 30px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 12px;
-            color: var(--cyber-white);
-            font-weight: 600;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .form-label i {
-            color: var(--neon-orange);
-            margin-right: 10px;
-            width: 25px;
-        }
-
-        .cyber-input {
-            width: 100%;
-            padding: 18px 25px;
-            background: rgba(30, 30, 45, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: var(--cyber-white);
-            font-size: 1.1rem;
-            font-family: 'Exo 2', sans-serif;
-            transition: var(--transition-smooth);
-            letter-spacing: 1px;
-        }
-
-        .cyber-input:focus {
-            outline: none;
-            border-color: var(--neon-red);
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
-            background: rgba(40, 40, 60, 0.8);
-        }
-
-        .cyber-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Pricelist Styling */
-        .cyber-pricelist {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .cyber-pricelist::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .cyber-pricelist::-webkit-scrollbar-track {
-            background: rgba(30, 30, 45, 0.5);
-            border-radius: 10px;
-        }
-
-        .cyber-pricelist::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--neon-red), var(--neon-orange));
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
-        }
-
-        .price-card {
-            background: rgba(30, 30, 45, 0.8);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border: 1px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .price-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--neon-red), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s;
-        }
-
-        .price-card:hover::before {
-            transform: translateX(0);
-        }
-
-        .price-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: var(--neon-red);
-            box-shadow: 0 10px 25px rgba(255, 0, 51, 0.2);
-        }
-
-        .price-card.selected {
-            background: rgba(255, 0, 51, 0.15);
-            border-color: var(--neon-red);
-            box-shadow: 0 10px 25px rgba(255, 0, 51, 0.3);
-            animation: pulse-neon 2s infinite;
-        }
-
-        .price-card.selected::before {
-            transform: translateX(0);
-        }
-
-        .bb-coin-amount {
-            font-family: 'Oxanium', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--neon-yellow);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .price-amount {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--cyber-white);
-        }
-
-        /* Payment Methods */
-        .cyber-payment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .payment-card {
-            background: rgba(30, 30, 45, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .payment-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-orange);
-            box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
-        }
-
-        .payment-card.selected {
-            border-color: var(--neon-orange);
-            box-shadow: 0 0 30px rgba(255, 102, 0, 0.4);
-            background: rgba(255, 102, 0, 0.1);
-        }
-
-        .payment-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+        }
+
+        .card h2 i {
+            margin-right: 10px;
+        }
+
+        /* Form section */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light-orange);
+            font-weight: 500;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 152, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
+        }
+
+        /* Price list */
+        .price-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .price-item {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--orange);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .price-item.selected {
+            border-color: var(--orange);
+            background: rgba(255, 152, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+        }
+
+        .price-item .bbc {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--orange);
+            margin-bottom: 5px;
+        }
+
+        .price-item .price {
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        /* Payment methods */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-item {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid rgba(255, 152, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .payment-item:hover {
+            border-color: var(--orange);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.2);
+        }
+
+        .payment-item.selected {
+            border-color: var(--orange);
+            background: rgba(255, 152, 0, 0.1);
         }
 
         .payment-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 1.8rem;
             margin-right: 15px;
-            font-size: 1.5rem;
-            color: var(--cyber-white);
+            width: 40px;
+            text-align: center;
         }
 
-        .payment-name {
-            font-family: 'Oxanium', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--cyber-white);
+        .payment-details h4 {
+            color: var(--light-orange);
+            margin-bottom: 5px;
         }
 
-        .payment-details {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 20px;
-            line-height: 1.5;
-            min-height: 50px;
+        .payment-details p {
+            color: #ccc;
+            font-size: 0.9rem;
         }
 
-        .cyber-copy-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, var(--neon-red), var(--neon-orange));
+        .copy-btn {
+            background: var(--orange);
+            color: var(--black);
             border: none;
-            border-radius: 10px;
-            color: var(--cyber-white);
-            font-family: 'Oxanium', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 1px;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: var(--transition-smooth);
-            display: flex;
+            margin-top: 8px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .copy-btn:hover {
+            background: var(--light-orange);
+        }
+
+        /* QRIS Section */
+        .qris-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qris-image {
+            max-width: 250px;
+            border-radius: 10px;
+            border: 3px solid var(--orange);
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-transform: uppercase;
         }
 
-        .cyber-copy-btn i {
-            margin-right: 10px;
-            font-size: 1.1rem;
+        .download-btn i {
+            margin-right: 8px;
         }
 
-        .cyber-copy-btn:hover {
-            background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
-            box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+        .download-btn:hover {
+            background: var(--dark-red);
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
         }
 
-        /* Order Summary */
-        .cyber-summary {
-            background: linear-gradient(135deg, rgba(18, 18, 26, 0.9), rgba(30, 30, 45, 0.9));
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 50px;
-            border: 1px solid rgba(255, 0, 51, 0.3);
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.7),
-                0 0 40px rgba(255, 0, 51, 0.2);
-            position: relative;
-            overflow: hidden;
-            animation: slide-up 1.4s ease-out 0.4s both;
-        }
-
-        .summary-glow {
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 51, 0.1) 0%, transparent 70%);
-            filter: blur(40px);
-            z-index: -1;
-        }
-
-        .summary-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .summary-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--neon-red), var(--neon-orange));
+        /* Order summary */
+        .order-summary {
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 25px;
-            font-size: 2rem;
-            color: var(--cyber-white);
-            box-shadow: 0 0 30px rgba(255, 0, 51, 0.5);
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid rgba(255, 152, 0, 0.4);
         }
 
-        .summary-title {
-            font-family: 'Oxanium', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(to right, var(--neon-red), var(--neon-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1.5px;
-        }
-
-        .total-display {
+        .summary-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 30px;
-            background: rgba(30, 30, 45, 0.8);
-            border-radius: 20px;
-            margin: 30px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .total-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255, 0, 51, 0.05) 50%, transparent 70%);
-            z-index: -1;
+        .summary-item.total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--orange);
+            border-bottom: none;
+            padding-top: 10px;
+            margin-top: 10px;
+            border-top: 2px solid rgba(255, 152, 0, 0.3);
         }
 
-        .total-label {
-            font-size: 1.8rem;
-            color: var(--cyber-white);
-            font-weight: 600;
-        }
-
-        .total-amount {
-            font-family: 'Oxanium', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--neon-yellow);
-            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
-            letter-spacing: 2px;
-        }
-
-        .instruction-box {
-            background: rgba(255, 102, 0, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-            border-left: 5px solid var(--neon-orange);
-        }
-
-        .instruction-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .instruction-text i {
-            color: var(--neon-yellow);
-            margin-right: 10px;
-        }
-
-        /* Cyber Button */
-        .cyber-order-btn {
+        /* Order button */
+        .order-btn {
             display: block;
             width: 100%;
-            padding: 25px;
-            background: linear-gradient(135deg, var(--neon-red), var(--neon-orange), var(--neon-yellow));
-            color: var(--cyber-white);
+            background: linear-gradient(90deg, var(--primary-red), var(--orange));
+            color: white;
             border: none;
-            border-radius: 20px;
-            font-family: 'Oxanium', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            border-radius: 10px;
+            padding: 18px;
+            font-size: 1.4rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            margin-top: 30px;
-            box-shadow: 0 10px 40px rgba(255, 0, 51, 0.4);
+            transition: all 0.3s;
+            margin-top: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .cyber-order-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.6s;
-            z-index: -1;
+        .order-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(90deg, var(--dark-red), var(--light-orange));
         }
 
-        .cyber-order-btn:hover::before {
-            left: 100%;
-        }
-
-        .cyber-order-btn:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(255, 0, 51, 0.6);
-            letter-spacing: 3px;
-        }
-
-        .cyber-order-btn:active {
-            transform: translateY(-4px);
-        }
-
-        .cyber-order-btn i {
-            margin-right: 15px;
-            font-size: 1.8rem;
-            animation: float 2s infinite ease-in-out;
+        .order-btn:active {
+            transform: translateY(-2px);
         }
 
         /* Footer */
-        .cyber-footer {
+        footer {
             text-align: center;
-            padding: 30px;
-            background: rgba(10, 10, 15, 0.8);
-            border-radius: 20px;
-            margin-top: 50px;
-            border-top: 1px solid rgba(255, 0, 51, 0.3);
-            backdrop-filter: blur(10px);
+            padding: 25px 0;
+            margin-top: 40px;
+            border-top: 2px solid rgba(255, 152, 0, 0.3);
+            color: #aaa;
+            font-size: 0.9rem;
         }
 
-        .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .warning-text {
-            color: var(--neon-orange);
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
-        }
-
-        .warning-text i {
-            margin-right: 10px;
-            color: var(--neon-yellow);
-        }
-
-        /* Notification */
-        .cyber-notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(18, 18, 26, 0.95);
-            color: white;
-            padding: 25px 35px;
-            border-radius: 15px;
-            border-left: 5px solid var(--neon-red);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transform: translateX(150%);
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 1000;
-            max-width: 400px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 0, 51, 0.3);
-        }
-
-        .cyber-notification.show {
-            transform: translateX(0);
-        }
-
-        .notification-content {
-            display: flex;
-            align-items: center;
-        }
-
-        .notification-icon {
-            color: var(--neon-red);
-            font-size: 1.8rem;
-            margin-right: 20px;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 51, 0.5));
-        }
-
-        .notification-message {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            color: var(--cyber-white);
+        .wa-contact {
+            color: var(--orange);
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         /* Responsive */
-        @media (max-width: 992px) {
-            .cyber-layout {
-                gap: 30px;
-            }
-            
-            .logo-text {
-                font-size: 2.8rem;
-            }
-            
-            .logo-icon {
-                font-size: 3.2rem;
-            }
-            
-            .cyber-card {
-                padding: 30px 25px;
-            }
-            
-            .card-title {
-                font-size: 1.8rem;
-            }
-            
-            .cyber-pricelist {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            }
-            
-            .total-amount {
-                font-size: 2.8rem;
-            }
-        }
-
         @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .price-list, .payment-methods {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
             .container {
                 padding: 15px;
             }
-            
-            .logo-wrapper {
-                flex-direction: column;
-            }
-            
-            .logo-icon {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .logo-text {
-                font-size: 2.4rem;
-            }
-            
-            .cyber-payment-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cyber-summary {
-                padding: 30px 25px;
-            }
-            
-            .cyber-notification {
-                right: 15px;
-                left: 15px;
-                max-width: none;
-                bottom: 15px;
-            }
         }
 
-        /* Custom Selection */
-        ::selection {
-            background: rgba(255, 0, 51, 0.5);
-            color: var(--cyber-white);
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--orange);
+            color: var(--black);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--cyber-dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--neon-red), var(--neon-orange));
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, var(--neon-orange), var(--neon-yellow));
+        .notification.show {
+            transform: translateX(0);
         }
     </style>
 </head>
 <body>
-    <!-- Futuristic Cyber Background -->
-    <div class="cyber-background">
-        <div class="cyber-grid"></div>
-        <div class="hexagon-pattern"></div>
-        <div class="neon-lines">
-            <div class="neon-line"></div>
-            <div class="neon-line"></div>
-            <div class="neon-line"></div>
-            <div class="neon-line"></div>
-        </div>
-        <div id="particles-js"></div>
-    </div>
+    <!-- Animated background -->
+    <div class="animated-bg"></div>
     
-    <!-- Glitch Overlay -->
-    <div class="glitch-overlay"></div>
-
+    <!-- Notification -->
+    <div class="notification" id="notification">Teks telah disalin!</div>
+    
     <div class="container">
         <!-- Header -->
-        <header class="cyber-header">
-            <div class="header-glow"></div>
-            <div class="logo-wrapper">
-                <i class="fas fa-robot logo-icon"></i>
-                <h1 class="logo-text">SIBGRIZLY</h1>
+        <header>
+            <div class="logo">
+                <i class="fas fa-gift logo-icon"></i>
+                <h1>SIB<span>GRIZLY</span></h1>
             </div>
-            <h2 class="subtitle">GIFT <span class="highlight">BB COIN</span> ADVANCE SERVER</h2>
-            <p class="subtitle">MOBILE LEGENDS • PROSES MANUAL • AMAN • TERPERCAYA</p>
+            <p class="tagline">Gift BBCoin Advance Server Mobile Legends</p>
         </header>
-
-        <!-- Main Layout -->
-        <div class="cyber-layout">
-            <!-- Left Column: Form & Pricelist -->
+        
+        <!-- Main content -->
+        <div class="main-content">
+            <!-- Left column: Form and payment methods -->
             <div class="left-column">
-                <!-- Form Section -->
-                <div class="cyber-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-user-astronaut"></i>
-                        </div>
-                        <h3 class="card-title">DATA PEMBELI</h3>
+                <!-- Form section -->
+                <div class="card">
+                    <h2><i class="fas fa-user-circle"></i> Data Pembeli</h2>
+                    <div class="form-group">
+                        <label for="mlbb-id">ID MLBB</label>
+                        <input type="text" id="mlbb-id" class="input-box" placeholder="Contoh: 123456789 (1234)" maxlength="20">
                     </div>
-                    
-                    <div class="cyber-form-group">
-                        <label class="form-label"><i class="fas fa-id-card"></i> ID MLBB</label>
-                        <input type="text" class="cyber-input" id="mlbb-id" placeholder="Contoh: 123456789 (1234)" maxlength="20">
-                    </div>
-                    
-                    <div class="cyber-form-group">
-                        <label class="form-label"><i class="fas fa-signature"></i> NICKNAME</label>
-                        <input type="text" class="cyber-input" id="nickname" placeholder="Masukkan nickname MLBB" maxlength="30">
+                    <div class="form-group">
+                        <label for="nickname">Nickname</label>
+                        <input type="text" id="nickname" class="input-box" placeholder="Masukkan nickname MLBB" maxlength="30">
                     </div>
                 </div>
-
-                <!-- Pricelist Section -->
-                <div class="cyber-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <h3 class="card-title">DAFTAR HARGA</h3>
+                
+                <!-- Payment methods -->
+                <div class="card">
+                    <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
+                    
+                    <!-- QRIS Section -->
+                    <div class="qris-section">
+                        <img src="https://files.catbox.moe/b3xttn.png" alt="QR Code" class="qris-image" id="qris-image">
+                        <button class="download-btn" id="download-qr">
+                            <i class="fas fa-download"></i> Download QR Code
+                        </button>
                     </div>
                     
-                    <div class="cyber-pricelist" id="pricelist">
-                        <!-- Pricelist akan diisi dengan JavaScript -->
+                    <div class="payment-methods">
+                        <!-- Payment items will be added by JavaScript -->
                     </div>
                 </div>
             </div>
-
-            <!-- Right Column: Payment Methods -->
+            
+            <!-- Right column: Price list and order summary -->
             <div class="right-column">
-                <!-- Payment Methods -->
-                <div class="cyber-card">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-credit-card"></i>
-                        </div>
-                        <h3 class="card-title">METODE PEMBAYARAN</h3>
-                    </div>
-                    
-                    <div class="cyber-payment-grid" id="payment-methods">
-                        <!-- Payment methods akan diisi dengan JavaScript -->
+                <!-- Price list -->
+                <div class="card">
+                    <h2><i class="fas fa-tags"></i> Daftar Harga BBCoin</h2>
+                    <p>Pilih jumlah BBCoin yang ingin Anda beli:</p>
+                    <div class="price-list">
+                        <!-- Price items will be added by JavaScript -->
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Order Summary -->
-        <div class="cyber-summary">
-            <div class="summary-glow"></div>
-            <div class="summary-header">
-                <div class="summary-icon">
-                    <i class="fas fa-shopping-cart"></i>
+                
+                <!-- Order summary -->
+                <div class="order-summary">
+                    <h2 style="color: var(--orange); margin-bottom: 20px; border-bottom: 2px solid rgba(255,152,0,0.3); padding-bottom: 10px;">
+                        <i class="fas fa-shopping-cart"></i> Ringkasan Pesanan
+                    </h2>
+                    <div class="summary-item">
+                        <span>ID MLBB:</span>
+                        <span id="summary-id">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Nickname:</span>
+                        <span id="summary-nickname">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>BBCoin:</span>
+                        <span id="summary-bbcoin">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Metode Pembayaran:</span>
+                        <span id="summary-payment">-</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total Bayar:</span>
+                        <span id="summary-total">IDR 0</span>
+                    </div>
                 </div>
-                <h3 class="summary-title">RINGKASAN PESANAN</h3>
+                
+                <!-- Order button -->
+                <button class="order-btn" id="order-btn">
+                    <i class="fas fa-paper-plane"></i> Pesan Sekarang
+                </button>
             </div>
-            
-            <div class="total-display">
-                <div class="total-label">TOTAL YANG HARUS DIBAYAR:</div>
-                <div class="total-amount" id="total-amount">Rp 0</div>
-            </div>
-            
-            <div class="instruction-box">
-                <p class="instruction-text">
-                    <i class="fas fa-info-circle"></i> Pilih jumlah BB Coin dan metode pembayaran terlebih dahulu<br>
-                    <i class="fas fa-check-circle"></i> Klik tombol "SALIN" pada metode pembayaran untuk menyalin nomor<br>
-                    <i class="fas fa-exclamation-circle"></i> Setelah melakukan pembayaran, harap kirim bukti transfer ke WhatsApp
-                </p>
-            </div>
-            
-            <button class="cyber-order-btn" id="order-btn">
-                <i class="fas fa-paper-plane"></i> PESAN SEKARANG
-            </button>
         </div>
-
+        
         <!-- Footer -->
-        <footer class="cyber-footer">
-            <p class="footer-text">© 2023 SIBGRIZLY - Layanan Gift BB Coin Advance Server Mobile Legends</p>
-            <p class="footer-text">Pastikan data yang dimasukkan sudah benar sebelum melakukan pemesanan</p>
-            <p class="warning-text"><i class="fas fa-exclamation-triangle"></i> Harap kirim bukti transfer ke WhatsApp setelah melakukan pembayaran</p>
+        <footer>
+            <p>Pastikan data yang Anda masukkan sudah benar sebelum melakukan pemesanan</p>
+            <p class="wa-contact">Konfirmasi pembayaran: WhatsApp 6287862600313</p>
+            <p>&copy; 2023 SIBGRIZLY - BBCoin Advance Server Mobile Legends</p>
         </footer>
     </div>
 
-    <!-- Notification -->
-    <div class="cyber-notification" id="notification">
-        <div class="notification-content">
-            <i class="fas fa-check-circle notification-icon"></i>
-            <div class="notification-message" id="notification-message">Teks berhasil disalin!</div>
-        </div>
-    </div>
-
-    <!-- Particle.js Library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
     <script>
-        // Data pricelist
-        const pricelist = [
-            { bbcoin: "5K BBC", price: 20000 },
-            { bbcoin: "10K BBC", price: 40000 },
-            { bbcoin: "15K BBC", price: 60000 },
-            { bbcoin: "20K BBC", price: 80000 },
-            { bbcoin: "25K BBC", price: 100000 },
-            { bbcoin: "30K BBC", price: 120000 },
-            { bbcoin: "35K BBC", price: 140000 },
-            { bbcoin: "40K BBC", price: 160000 },
-            { bbcoin: "45K BBC", price: 180000 },
-            { bbcoin: "50K BBC", price: 200000 },
-            { bbcoin: "55K BBC", price: 220000 },
-            { bbcoin: "60K BBC", price: 240000 },
-            { bbcoin: "65K BBC", price: 260000 },
-            { bbcoin: "70K BBC", price: 280000 },
-            { bbcoin: "75K BBC", price: 300000 },
-            { bbcoin: "80K BBC", price: 320000 },
-            { bbcoin: "85K BBC", price: 340000 },
-            { bbcoin: "90K BBC", price: 360000 },
-            { bbcoin: "95K BBC", price: 380000 },
-            { bbcoin: "100K BBC", price: 400000 }
+        // Data harga BBCoin
+        const priceList = [
+            { bbc: "5K BBC", price: 20000 },
+            { bbc: "10K BBC", price: 40000 },
+            { bbc: "15K BBC", price: 60000 },
+            { bbc: "20K BBC", price: 80000 },
+            { bbc: "25K BBC", price: 100000 },
+            { bbc: "30K BBC", price: 120000 },
+            { bbc: "35K BBC", price: 140000 },
+            { bbc: "40K BBC", price: 160000 },
+            { bbc: "45K BBC", price: 180000 },
+            { bbc: "50K BBC", price: 200000 },
+            { bbc: "55K BBC", price: 220000 },
+            { bbc: "60K BBC", price: 240000 },
+            { bbc: "65K BBC", price: 260000 },
+            { bbc: "70K BBC", price: 280000 },
+            { bbc: "75K BBC", price: 300000 },
+            { bbc: "80K BBC", price: 320000 },
+            { bbc: "85K BBC", price: 340000 },
+            { bbc: "90K BBC", price: 360000 },
+            { bbc: "95K BBC", price: 380000 },
+            { bbc: "100K BBC", price: 400000 }
         ];
 
         // Data metode pembayaran
         const paymentMethods = [
             { 
-                name: "QRIS", 
-                details: "Scan QR Code untuk pembayaran", 
-                icon: "fas fa-qrcode",
-                data: "https://files.catbox.moe/b3xttn.png"
-            },
-            { 
                 name: "OVO", 
-                details: "087762133437 a/n SIBRA AMULISI", 
-                icon: "fab fa-cc-amazon-pay",
-                data: "087762133437"
+                number: "087762133437", 
+                account: "SIBRA AMULISI",
+                icon: "fas fa-mobile-alt",
+                color: "#4C2A86"
             },
             { 
                 name: "DANA", 
-                details: "087762133437 a/n SIBRA AMULISI", 
+                number: "087762133437", 
+                account: "SIBRA AMULISI",
                 icon: "fas fa-wallet",
-                data: "087762133437"
+                color: "#00AEF0"
             },
             { 
                 name: "GOPAY", 
-                details: "087862600313 a/n SIBRA AMULISI", 
-                icon: "fab fa-google-wallet",
-                data: "087862600313"
+                number: "087862600313", 
+                account: "SIBRA AMULISI",
+                icon: "fas fa-credit-card",
+                color: "#00AEEF"
             },
             { 
                 name: "SHOPEEPAY", 
-                details: "087862600313 a/n SIBRA AMULISI", 
+                number: "087862600313", 
+                account: "SIBRA AMULISI",
                 icon: "fas fa-shopping-bag",
-                data: "087862600313"
+                color: "#EE4D2D"
             },
             { 
                 name: "SEABANK", 
-                details: "901125967718 a/n SIBRA AMULISI", 
+                number: "901125967718", 
+                account: "SIBRA AMULISI",
                 icon: "fas fa-university",
-                data: "901125967718"
+                color: "#0D6EFD"
             },
             { 
                 name: "BANK JAGO", 
-                details: "102672395274 a/n SIBRA AMULISI", 
+                number: "102672395274", 
+                account: "SIBRA AMULISI",
                 icon: "fas fa-landmark",
-                data: "102672395274"
+                color: "#6CC24A"
             }
         ];
 
-        // Variabel global untuk menyimpan pilihan
-        let selectedPrice = null;
+        // State aplikasi
+        let selectedBBC = null;
         let selectedPayment = null;
+        let orderData = {
+            id: "",
+            nickname: "",
+            bbcoin: "",
+            payment: "",
+            total: 0
+        };
 
-        // Inisialisasi Particle.js
-        document.addEventListener('DOMContentLoaded', function() {
-            // Konfigurasi particles
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: ["#ff0033", "#ff6600", "#ffcc00"] },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: "#ff0033",
-                        opacity: 0.2,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 3,
-                        direction: "none",
-                        random: true,
-                        straight: false,
-                        out_mode: "out",
-                        bounce: false
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: { enable: true, mode: "repulse" },
-                        onclick: { enable: true, mode: "push" },
-                        resize: true
-                    }
-                },
-                retina_detect: true
-            });
-
-            renderPricelist();
-            renderPaymentMethods();
-            
-            // Event listener untuk tombol pesan sekarang
-            document.getElementById('order-btn').addEventListener('click', sendToWhatsApp);
-            
-            // Validasi input
-            document.getElementById('mlbb-id').addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9\s\(\)]/g, '');
-            });
-            
-            // Tambahkan efek hover untuk semua card
-            document.querySelectorAll('.cyber-card, .payment-card, .price-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.zIndex = '10';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.zIndex = '1';
-                });
-            });
-            
-            // Animasi saat scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // Observasi elemen yang akan dianimasikan
-            document.querySelectorAll('.cyber-card, .cyber-summary').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                observer.observe(el);
-            });
-        });
-
-        // Fungsi untuk menampilkan pricelist
-        function renderPricelist() {
-            const pricelistContainer = document.getElementById('pricelist');
-            pricelistContainer.innerHTML = '';
-            
-            pricelist.forEach(item => {
-                const priceCard = document.createElement('div');
-                priceCard.className = 'price-card';
-                priceCard.innerHTML = `
-                    <div class="bb-coin-amount">${item.bbcoin}</div>
-                    <div class="price-amount">Rp ${item.price.toLocaleString('id-ID')}</div>
-                `;
-                
-                priceCard.addEventListener('click', () => {
-                    // Hapus seleksi dari semua item
-                    document.querySelectorAll('.price-card').forEach(el => {
-                        el.classList.remove('selected');
-                    });
-                    
-                    // Tambah seleksi ke item yang diklik
-                    priceCard.classList.add('selected');
-                    
-                    // Tambah efek visual
-                    priceCard.style.transform = 'scale(1.05)';
-                    setTimeout(() => {
-                        priceCard.style.transform = '';
-                    }, 300);
-                    
-                    // Simpan pilihan
-                    selectedPrice = item;
-                    
-                    // Update total
-                    updateTotal();
-                });
-                
-                pricelistContainer.appendChild(priceCard);
-            });
-        }
-
-        // Fungsi untuk menampilkan metode pembayaran
-        function renderPaymentMethods() {
-            const paymentContainer = document.getElementById('payment-methods');
-            paymentContainer.innerHTML = '';
-            
-            paymentMethods.forEach(method => {
-                const paymentCard = document.createElement('div');
-                paymentCard.className = 'payment-card';
-                paymentCard.innerHTML = `
-                    <div class="payment-header">
-                        <div class="payment-icon">
-                            <i class="${method.icon}"></i>
-                        </div>
-                        <div class="payment-name">${method.name}</div>
-                    </div>
-                    <div class="payment-details">${method.details}</div>
-                    <button class="cyber-copy-btn" data-details="${method.data}">
-                        <i class="fas fa-copy"></i> SALIN
-                    </button>
-                `;
-                
-                paymentCard.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('cyber-copy-btn') || e.target.closest('.cyber-copy-btn')) {
-                        return; // Jangan pilih metode saat mengeklik tombol salin
-                    }
-                    
-                    // Hapus seleksi dari semua metode
-                    document.querySelectorAll('.payment-card').forEach(el => {
-                        el.classList.remove('selected');
-                    });
-                    
-                    // Tambah seleksi ke metode yang dipilih
-                    paymentCard.classList.add('selected');
-                    
-                    // Simpan pilihan
-                    selectedPayment = method;
-                    
-                    // Update total
-                    updateTotal();
-                });
-                
-                paymentContainer.appendChild(paymentCard);
-            });
-            
-            // Tambahkan event listener untuk tombol salin
-            document.querySelectorAll('.cyber-copy-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Mencegah event bubbling ke parent
-                    const textToCopy = this.getAttribute('data-details');
-                    copyToClipboard(textToCopy);
-                    
-                    // Tampilkan notifikasi
-                    if (textToCopy.includes('https://')) {
-                        showNotification('QR Code tersedia di halaman pembayaran');
-                    } else {
-                        showNotification(`Nomor ${textToCopy} berhasil disalin!`);
-                    }
-                    
-                    // Efek visual pada tombol
-                    this.innerHTML = '<i class="fas fa-check"></i> TERSALIN';
-                    this.style.background = 'linear-gradient(135deg, #00ff00, #00cc00)';
-                    
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-copy"></i> SALIN';
-                        this.style.background = 'linear-gradient(135deg, var(--neon-red), var(--neon-orange))';
-                    }, 2000);
-                });
-            });
-        }
-
-        // Fungsi untuk mengupdate total
-        function updateTotal() {
-            const totalAmount = document.getElementById('total-amount');
-            
-            if (selectedPrice) {
-                totalAmount.textContent = `Rp ${selectedPrice.price.toLocaleString('id-ID')}`;
-                
-                // Efek visual
-                totalAmount.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    totalAmount.style.transform = '';
-                }, 300);
-            } else {
-                totalAmount.textContent = 'Rp 0';
-            }
-        }
-
-        // Fungsi untuk menyalin ke clipboard
-        function copyToClipboard(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
+        // Fungsi untuk memformat angka menjadi format mata uang IDR
+        function formatCurrency(amount) {
+            return "IDR " + amount.toLocaleString("id-ID");
         }
 
         // Fungsi untuk menampilkan notifikasi
         function showNotification(message) {
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notification-message');
-            
-            notificationMessage.textContent = message;
-            notification.classList.add('show');
+            const notification = document.getElementById("notification");
+            notification.textContent = message;
+            notification.classList.add("show");
             
             setTimeout(() => {
-                notification.classList.remove('show');
-            }, 4000);
+                notification.classList.remove("show");
+            }, 3000);
+        }
+
+        // Fungsi untuk membuat daftar harga
+        function renderPriceList() {
+            const priceListContainer = document.querySelector(".price-list");
+            priceListContainer.innerHTML = "";
+            
+            priceList.forEach(item => {
+                const priceItem = document.createElement("div");
+                priceItem.className = "price-item";
+                if (selectedBBC === item.bbc) {
+                    priceItem.classList.add("selected");
+                }
+                
+                priceItem.innerHTML = `
+                    <div class="bbc">${item.bbc}</div>
+                    <div class="price">${formatCurrency(item.price)}</div>
+                `;
+                
+                priceItem.addEventListener("click", () => {
+                    // Hapus selected dari semua item
+                    document.querySelectorAll(".price-item").forEach(el => {
+                        el.classList.remove("selected");
+                    });
+                    
+                    // Tambahkan selected ke item yang diklik
+                    priceItem.classList.add("selected");
+                    selectedBBC = item.bbc;
+                    orderData.bbcoin = item.bbc;
+                    orderData.total = item.price;
+                    
+                    updateOrderSummary();
+                });
+                
+                priceListContainer.appendChild(priceItem);
+            });
+        }
+
+        // Fungsi untuk membuat daftar metode pembayaran
+        function renderPaymentMethods() {
+            const paymentContainer = document.querySelector(".payment-methods");
+            paymentContainer.innerHTML = "";
+            
+            paymentMethods.forEach(method => {
+                const paymentItem = document.createElement("div");
+                paymentItem.className = "payment-item";
+                if (selectedPayment === method.name) {
+                    paymentItem.classList.add("selected");
+                }
+                
+                paymentItem.innerHTML = `
+                    <div class="payment-icon" style="color: ${method.color};">
+                        <i class="${method.icon}"></i>
+                    </div>
+                    <div class="payment-details">
+                        <h4>${method.name}</h4>
+                        <p>${method.number}</p>
+                        <p>a/n ${method.account}</p>
+                        <button class="copy-btn" data-number="${method.number}">
+                            <i class="fas fa-copy"></i> Salin
+                        </button>
+                    </div>
+                `;
+                
+                paymentItem.addEventListener("click", (e) => {
+                    // Jika klik pada tombol salin, jangan pilih metode pembayaran
+                    if (e.target.closest(".copy-btn")) return;
+                    
+                    // Hapus selected dari semua item
+                    document.querySelectorAll(".payment-item").forEach(el => {
+                        el.classList.remove("selected");
+                    });
+                    
+                    // Tambahkan selected ke item yang diklik
+                    paymentItem.classList.add("selected");
+                    selectedPayment = method.name;
+                    orderData.payment = `${method.name} - ${method.number}`;
+                    
+                    updateOrderSummary();
+                });
+                
+                paymentContainer.appendChild(paymentItem);
+            });
+            
+            // Tambahkan event listener untuk tombol salin
+            document.querySelectorAll(".copy-btn").forEach(button => {
+                button.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const number = button.getAttribute("data-number");
+                    navigator.clipboard.writeText(number)
+                        .then(() => {
+                            showNotification(`Nomor ${number} telah disalin!`);
+                        })
+                        .catch(err => {
+                            console.error("Gagal menyalin: ", err);
+                        });
+                });
+            });
+        }
+
+        // Fungsi untuk memperbarui ringkasan pesanan
+        function updateOrderSummary() {
+            const mlbbId = document.getElementById("mlbb-id").value;
+            const nickname = document.getElementById("nickname").value;
+            
+            orderData.id = mlbbId;
+            orderData.nickname = nickname;
+            
+            document.getElementById("summary-id").textContent = mlbbId || "-";
+            document.getElementById("summary-nickname").textContent = nickname || "-";
+            document.getElementById("summary-bbcoin").textContent = orderData.bbcoin || "-";
+            document.getElementById("summary-payment").textContent = orderData.payment || "-";
+            document.getElementById("summary-total").textContent = orderData.total > 0 ? formatCurrency(orderData.total) : "IDR 0";
         }
 
         // Fungsi untuk mengirim pesan ke WhatsApp
         function sendToWhatsApp() {
-            const mlbbId = document.getElementById('mlbb-id').value.trim();
-            const nickname = document.getElementById('nickname').value.trim();
-            
-            // Validasi input
-            if (!mlbbId) {
-                showNotification('Harap masukkan ID MLBB!');
-                document.getElementById('mlbb-id').focus();
+            // Validasi form
+            if (!orderData.id || !orderData.nickname) {
+                showNotification("Harap isi ID MLBB dan Nickname!");
                 return;
             }
             
-            if (!nickname) {
-                showNotification('Harap masukkan Nickname!');
-                document.getElementById('nickname').focus();
+            if (!orderData.bbcoin) {
+                showNotification("Harap pilih jumlah BBCoin!");
                 return;
             }
             
-            if (!selectedPrice) {
-                showNotification('Harap pilih jumlah BB Coin!');
+            if (!orderData.payment) {
+                showNotification("Harap pilih metode pembayaran!");
                 return;
             }
             
-            if (!selectedPayment) {
-                showNotification('Harap pilih metode pembayaran!');
-                return;
-            }
+            // Format pesan untuk WhatsApp
+            const message = `Halo SIBGRIZLY, saya ingin memesan BBCoin Advance Server MLBB:
+
+ID MLBB: ${orderData.id}
+Nickname: ${orderData.nickname}
+BBCoin: ${orderData.bbcoin}
+Metode Pembayaran: ${orderData.payment}
+Total: ${formatCurrency(orderData.total)}
+
+Saya akan mengirimkan bukti transfer segera.`;
             
-            // Format pesan WhatsApp
-            const message = `Halo SIBGRIZLY, saya ingin memesan BB Coin Advance Server MLBB dengan detail berikut:%0A%0A` +
-                           `*ID MLBB:* ${mlbbId}%0A` +
-                           `*Nickname:* ${nickname}%0A` +
-                           `*Paket BB Coin:* ${selectedPrice.bbcoin}%0A` +
-                           `*Harga:* Rp ${selectedPrice.price.toLocaleString('id-ID')}%0A` +
-                           `*Metode Pembayaran:* ${selectedPayment.name}%0A` +
-                           `%0A_Saya akan mengirimkan bukti transfer setelah melakukan pembayaran._`;
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(message);
             
-            // Nomor WhatsApp
-            const phoneNumber = '6287862600313';
+            // Buat link WhatsApp
+            const whatsappUrl = `https://wa.me/6287862600313?text=${encodedMessage}`;
             
-            // Efek visual pada tombol
-            const orderBtn = document.getElementById('order-btn');
-            orderBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> MEMUAT...';
-            orderBtn.disabled = true;
-            
-            // Tunggu 1.5 detik sebelum membuka WhatsApp
-            setTimeout(() => {
-                // Buka WhatsApp dengan pesan
-                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-                
-                // Reset tombol
-                orderBtn.innerHTML = '<i class="fas fa-paper-plane"></i> PESAN SEKARANG';
-                orderBtn.disabled = false;
-                
-                // Tampilkan notifikasi
-                showNotification('Pesanan berhasil dibuat! Silahkan lanjutkan ke WhatsApp.');
-            }, 1500);
+            // Buka link WhatsApp di tab baru
+            window.open(whatsappUrl, "_blank");
         }
+
+        // Fungsi untuk mendownload QR Code
+        function downloadQRCode() {
+            const qrImage = document.getElementById("qris-image");
+            const imageUrl = qrImage.src;
+            
+            // Buat elemen anchor untuk download
+            const a = document.createElement("a");
+            a.href = imageUrl;
+            a.download = "qris-sibgrizzly.png";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            showNotification("QR Code berhasil didownload!");
+        }
+
+        // Inisialisasi aplikasi
+        document.addEventListener("DOMContentLoaded", () => {
+            // Render daftar harga dan metode pembayaran
+            renderPriceList();
+            renderPaymentMethods();
+            
+            // Event listener untuk input form
+            document.getElementById("mlbb-id").addEventListener("input", updateOrderSummary);
+            document.getElementById("nickname").addEventListener("input", updateOrderSummary);
+            
+            // Event listener untuk tombol pesan
+            document.getElementById("order-btn").addEventListener("click", sendToWhatsApp);
+            
+            // Event listener untuk tombol download QR
+            document.getElementById("download-qr").addEventListener("click", downloadQRCode);
+            
+            // Pilih item pertama di daftar harga dan pembayaran secara default
+            if (priceList.length > 0) {
+                selectedBBC = priceList[0].bbc;
+                orderData.bbcoin = priceList[0].bbc;
+                orderData.total = priceList[0].price;
+                document.querySelector(".price-item").classList.add("selected");
+            }
+            
+            if (paymentMethods.length > 0) {
+                selectedPayment = paymentMethods[0].name;
+                orderData.payment = `${paymentMethods[0].name} - ${paymentMethods[0].number}`;
+                document.querySelector(".payment-item").classList.add("selected");
+            }
+            
+            updateOrderSummary();
+        });
     </script>
 </body>
 </html>
