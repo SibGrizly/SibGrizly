@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIBGRIZLY - Gift BBCoin Advance Server MLBB</title>
+    <title>SIBGRIZLY - BB Coin Advance Server MLBB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -12,27 +12,16 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary-red: #D32F2F;
-            --dark-red: #B71C1C;
-            --black: #121212;
-            --gray: #2C2C2C;
-            --white: #FFFFFF;
-            --orange: #FF9800;
-            --light-orange: #FFB74D;
-            --shadow: rgba(0, 0, 0, 0.5);
-        }
-
+        
         body {
-            background-color: var(--black);
-            color: var(--white);
+            background-color: #0a0a0a;
+            color: #f5f5f5;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
-
-        /* Animated background */
+        
+        /* Background animasi */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -40,813 +29,734 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
-                linear-gradient(45deg, var(--black) 25%, transparent 25%, transparent 75%, var(--black) 75%),
-                linear-gradient(45deg, var(--black) 25%, transparent 25%, transparent 75%, var(--black) 75%),
-                linear-gradient(to bottom, var(--dark-red), var(--black));
-            background-size: 40px 40px, 40px 40px, 100% 100%;
-            background-position: 0 0, 20px 20px, 0 0;
-            animation: moveBackground 20s linear infinite;
+            overflow: hidden;
         }
-
-        @keyframes moveBackground {
-            0% {
-                background-position: 0 0, 20px 20px, 0 0;
-            }
-            100% {
-                background-position: 40px 40px, 60px 60px, 0 0;
-            }
+        
+        .bg-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, rgba(255,0,0,0) 70%);
+            animation: float 15s infinite linear;
         }
-
-        /* Container */
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-100px) translateX(100px) rotate(90deg); opacity: 0.6; }
+            50% { transform: translateY(-200px) translateX(-100px) rotate(180deg); opacity: 0.3; }
+            75% { transform: translateY(-100px) translateX(-200px) rotate(270deg); opacity: 0.6; }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); opacity: 0.3; }
+        }
+        
+        /* Container utama */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            z-index: 1;
             position: relative;
+            z-index: 1;
         }
-
+        
         /* Header */
         header {
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 0;
             margin-bottom: 30px;
-            border-bottom: 3px solid var(--orange);
-            background: rgba(179, 44, 44, 0.15);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid #d4af37;
+            background: linear-gradient(90deg, rgba(139,0,0,0.8) 0%, rgba(0,0,0,0.8) 50%, rgba(139,0,0,0.8) 100%);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
         }
-
+        
         .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .logo-icon {
-            color: var(--orange);
             font-size: 2.8rem;
-            margin-right: 15px;
-            text-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
-        }
-
-        h1 {
-            color: var(--white);
-            font-size: 2.8rem;
-            text-transform: uppercase;
+            font-weight: 900;
+            color: #d4af37;
+            text-shadow: 3px 3px 0 #8b0000, 6px 6px 0 rgba(0,0,0,0.5);
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(211, 47, 47, 0.8);
+            margin-bottom: 10px;
         }
-
-        h1 span {
-            color: var(--orange);
-        }
-
+        
         .tagline {
-            color: var(--light-orange);
             font-size: 1.2rem;
-            font-weight: 500;
+            color: #ffcc00;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        /* Main layout */
+        
+        .sub-tagline {
+            font-size: 1rem;
+            color: #ccc;
+            font-weight: 300;
+        }
+        
+        /* Main content */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-wrap: wrap;
             gap: 30px;
             margin-bottom: 40px;
         }
-
-        @media (max-width: 992px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Cards */
-        .card {
-            background: rgba(44, 44, 44, 0.85);
+        
+        /* Form section */
+        .form-section, .pricelist-section, .payment-section {
+            background-color: rgba(20, 20, 20, 0.85);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 152, 0, 0.3);
-            overflow: hidden;
-            position: relative;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+            border: 1px solid #333;
+            flex: 1;
+            min-width: 300px;
         }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-red), var(--orange));
-        }
-
-        .card h2 {
-            color: var(--orange);
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #ffcc00;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(255, 152, 0, 0.3);
-            font-size: 1.8rem;
+            border-bottom: 2px solid #8b0000;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
-
-        .card h2 i {
-            margin-right: 10px;
+        
+        .section-title i {
+            color: #d4af37;
         }
-
-        /* Form section */
+        
+        /* Form input */
         .form-group {
             margin-bottom: 20px;
         }
-
+        
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: var(--light-orange);
-            font-weight: 500;
+            font-weight: 600;
+            color: #ffcc00;
         }
-
-        .input-box {
+        
+        .form-group input {
             width: 100%;
-            padding: 14px 15px;
+            padding: 12px 15px;
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 1px solid #555;
             border-radius: 8px;
-            border: 2px solid rgba(255, 152, 0, 0.4);
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
+            color: #fff;
             font-size: 1rem;
             transition: all 0.3s;
         }
-
-        .input-box:focus {
+        
+        .form-group input:focus {
             outline: none;
-            border-color: var(--orange);
-            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
+            border-color: #ffcc00;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
         }
-
-        /* Price list */
-        .price-list {
+        
+        /* Pricelist */
+        .pricelist-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 15px;
         }
-
+        
         .price-item {
-            background: rgba(0, 0, 0, 0.6);
+            background: linear-gradient(135deg, rgba(139,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
             border-radius: 10px;
             padding: 15px;
             text-align: center;
-            border: 2px solid rgba(255, 152, 0, 0.2);
+            border: 1px solid #444;
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
-
+        
         .price-item:hover {
             transform: translateY(-5px);
-            border-color: var(--orange);
-            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+            box-shadow: 0 10px 15px rgba(255, 215, 0, 0.2);
+            border-color: #ffcc00;
         }
-
+        
         .price-item.selected {
-            border-color: var(--orange);
-            background: rgba(255, 152, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+            border-color: #ffcc00;
+            background: linear-gradient(135deg, rgba(139,0,0,1) 0%, rgba(0,0,0,1) 100%);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
-
-        .price-item .bbc {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--orange);
+        
+        .bb-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffcc00;
             margin-bottom: 5px;
         }
-
-        .price-item .price {
-            font-size: 1.1rem;
-            color: var(--white);
+        
+        .bb-price {
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: 600;
         }
-
+        
         /* Payment methods */
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        .payment-options {
+            display: flex;
+            flex-direction: column;
             gap: 15px;
-            margin-top: 15px;
         }
-
-        .payment-item {
-            background: rgba(0, 0, 0, 0.6);
+        
+        .payment-method {
+            background-color: rgba(30, 30, 30, 0.9);
             border-radius: 10px;
             padding: 15px;
-            border: 2px solid rgba(255, 152, 0, 0.2);
-            cursor: pointer;
+            border: 1px solid #444;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
         }
-
-        .payment-item:hover {
-            border-color: var(--orange);
-            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.2);
+        
+        .payment-method:hover {
+            border-color: #ffcc00;
         }
-
-        .payment-item.selected {
-            border-color: var(--orange);
-            background: rgba(255, 152, 0, 0.1);
-        }
-
-        .payment-icon {
-            font-size: 1.8rem;
-            margin-right: 15px;
-            width: 40px;
-            text-align: center;
-        }
-
-        .payment-details h4 {
-            color: var(--light-orange);
-            margin-bottom: 5px;
-        }
-
-        .payment-details p {
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-
-        .copy-btn {
-            background: var(--orange);
-            color: var(--black);
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: all 0.3s;
-            font-weight: bold;
-        }
-
-        .copy-btn:hover {
-            background: var(--light-orange);
-        }
-
-        /* QRIS Section */
-        .qris-section {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .qris-image {
-            max-width: 250px;
-            border-radius: 10px;
-            border: 3px solid var(--orange);
-            margin-bottom: 15px;
-        }
-
-        .download-btn {
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .download-btn i {
-            margin-right: 8px;
-        }
-
-        .download-btn:hover {
-            background: var(--dark-red);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
-        }
-
-        /* Order summary */
-        .order-summary {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            border: 2px solid rgba(255, 152, 0, 0.4);
-        }
-
-        .summary-item {
+        
+        .payment-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+            margin-bottom: 10px;
         }
-
-        .summary-item.total {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--orange);
-            border-bottom: none;
-            padding-top: 10px;
-            margin-top: 10px;
-            border-top: 2px solid rgba(255, 152, 0, 0.3);
+        
+        .payment-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #ffcc00;
         }
-
-        /* Order button */
-        .order-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(90deg, var(--primary-red), var(--orange));
+        
+        .payment-number {
+            font-size: 0.95rem;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+        
+        .payment-account {
+            font-size: 0.9rem;
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .copy-btn {
+            background-color: #8b0000;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 18px;
-            font-size: 1.4rem;
-            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-
+        
+        .copy-btn:hover {
+            background-color: #d4af37;
+        }
+        
+        .qris-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .qris-img {
+            max-width: 180px;
+            border-radius: 10px;
+            border: 2px solid #444;
+        }
+        
+        /* Order button */
+        .order-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .order-btn {
+            background: linear-gradient(90deg, #8b0000, #d4af37, #8b0000);
+            background-size: 200% 100%;
+            color: #000;
+            font-weight: 800;
+            font-size: 1.5rem;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.5);
+            animation: gradientShift 3s infinite alternate;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
         .order-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
-            background: linear-gradient(90deg, var(--dark-red), var(--light-orange));
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+            color: #000;
         }
-
+        
         .order-btn:active {
-            transform: translateY(-2px);
+            transform: translateY(0);
         }
-
+        
+        .order-btn i {
+            margin-right: 10px;
+        }
+        
         /* Footer */
         footer {
             text-align: center;
             padding: 25px 0;
-            margin-top: 40px;
-            border-top: 2px solid rgba(255, 152, 0, 0.3);
+            margin-top: 30px;
+            border-top: 1px solid #333;
             color: #aaa;
             font-size: 0.9rem;
+            background-color: rgba(10, 10, 10, 0.9);
+            border-radius: 10px;
         }
-
-        .wa-contact {
-            color: var(--orange);
-            font-weight: bold;
+        
+        .whatsapp-contact {
+            color: #25D366;
+            font-weight: 600;
             margin-top: 10px;
+            display: inline-block;
         }
-
-        /* Responsive */
+        
+        /* Responsive design */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            .main-content {
+                flex-direction: column;
             }
             
-            .price-list, .payment-methods {
+            .pricelist-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
             
-            .card {
-                padding: 20px;
+            .logo {
+                font-size: 2.2rem;
             }
             
-            .container {
-                padding: 15px;
+            .order-btn {
+                font-size: 1.2rem;
+                padding: 15px 30px;
             }
         }
-
+        
         /* Notification */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--orange);
-            color: var(--black);
+            background-color: #1a5e1a;
+            color: white;
             padding: 15px 25px;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 1000;
             transform: translateX(150%);
-            transition: transform 0.5s;
+            transition: transform 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
+        
         .notification.show {
             transform: translateX(0);
+        }
+        
+        .notification.error {
+            background-color: #8b0000;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .loading-overlay.active {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid #333;
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Animated background -->
-    <div class="animated-bg"></div>
+    <!-- Background animasi -->
+    <div class="animated-bg" id="animatedBg"></div>
     
-    <!-- Notification -->
-    <div class="notification" id="notification">Teks telah disalin!</div>
+    <!-- Notifikasi -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Berhasil disalin!</span>
+    </div>
+    
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
     
     <div class="container">
         <!-- Header -->
         <header>
-            <div class="logo">
-                <i class="fas fa-gift logo-icon"></i>
-                <h1>SIB<span>GRIZLY</span></h1>
-            </div>
-            <p class="tagline">Gift BBCoin Advance Server Mobile Legends</p>
+            <h1 class="logo">SIBGRIZLY</h1>
+            <p class="tagline">BB Coin Advance Server Mobile Legends</p>
+            <p class="sub-tagline">Top Up BBC dengan harga termurah dan proses cepat</p>
         </header>
         
-        <!-- Main content -->
+        <!-- Konten utama -->
         <div class="main-content">
-            <!-- Left column: Form and payment methods -->
-            <div class="left-column">
-                <!-- Form section -->
-                <div class="card">
-                    <h2><i class="fas fa-user-circle"></i> Data Pembeli</h2>
-                    <div class="form-group">
-                        <label for="mlbb-id">ID MLBB</label>
-                        <input type="text" id="mlbb-id" class="input-box" placeholder="Contoh: 123456789 (1234)" maxlength="20">
-                    </div>
-                    <div class="form-group">
-                        <label for="nickname">Nickname</label>
-                        <input type="text" id="nickname" class="input-box" placeholder="Masukkan nickname MLBB" maxlength="30">
-                    </div>
+            <!-- Form section -->
+            <section class="form-section">
+                <h2 class="section-title"><i class="fas fa-user-circle"></i> Data Pemesanan</h2>
+                <div class="form-group">
+                    <label for="mlbbId"><i class="fas fa-id-card"></i> ID MLBB Advance Server</label>
+                    <input type="text" id="mlbbId" placeholder="Contoh: 123456789 (1234)">
                 </div>
-                
-                <!-- Payment methods -->
-                <div class="card">
-                    <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
-                    
-                    <!-- QRIS Section -->
-                    <div class="qris-section">
-                        <img src="https://files.catbox.moe/b3xttn.png" alt="QR Code" class="qris-image" id="qris-image">
-                        <button class="download-btn" id="download-qr">
-                            <i class="fas fa-download"></i> Download QR Code
-                        </button>
-                    </div>
-                    
-                    <div class="payment-methods">
-                        <!-- Payment items will be added by JavaScript -->
-                    </div>
+                <div class="form-group">
+                    <label for="nickname"><i class="fas fa-user"></i> Nickname</label>
+                    <input type="text" id="nickname" placeholder="Masukkan nickname MLBB">
                 </div>
-            </div>
+            </section>
             
-            <!-- Right column: Price list and order summary -->
-            <div class="right-column">
-                <!-- Price list -->
-                <div class="card">
-                    <h2><i class="fas fa-tags"></i> Daftar Harga BBCoin</h2>
-                    <p>Pilih jumlah BBCoin yang ingin Anda beli:</p>
-                    <div class="price-list">
-                        <!-- Price items will be added by JavaScript -->
+            <!-- Pricelist section -->
+            <section class="pricelist-section">
+                <h2 class="section-title"><i class="fas fa-tags"></i> Daftar Harga BB Coin</h2>
+                <div class="pricelist-grid" id="pricelist">
+                    <!-- Daftar harga akan diisi oleh JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Payment section -->
+            <section class="payment-section">
+                <h2 class="section-title"><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
+                <div class="payment-options">
+                    <!-- QRIS -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-qrcode"></i>
+                                <span>QRIS</span>
+                            </div>
+                        </div>
+                        <div class="qris-container">
+                            <img src="https://files.catbox.moe/b3xttn.png" alt="QRIS" class="qris-img">
+                            <p class="payment-account">Scan QR code di atas</p>
+                        </div>
+                    </div>
+                    
+                    <!-- OVO -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-wallet"></i>
+                                <span>OVO</span>
+                            </div>
+                            <button class="copy-btn" data-number="087762133437">
+                                <i class="far fa-copy"></i> Salin
+                            </button>
+                        </div>
+                        <p class="payment-number">087762133437</p>
+                        <p class="payment-account">a/n SIBRA AMULISI</p>
+                    </div>
+                    
+                    <!-- Dana -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-wallet"></i>
+                                <span>Dana</span>
+                            </div>
+                            <button class="copy-btn" data-number="087762133437">
+                                <i class="far fa-copy"></i> Salin
+                            </button>
+                        </div>
+                        <p class="payment-number">087762133437</p>
+                        <p class="payment-account">a/n SIBRA AMULISI</p>
+                    </div>
+                    
+                    <!-- Gopay -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-wallet"></i>
+                                <span>Gopay</span>
+                            </div>
+                            <button class="copy-btn" data-number="087862600313">
+                                <i class="far fa-copy"></i> Salin
+                            </button>
+                        </div>
+                        <p class="payment-number">087862600313</p>
+                        <p class="payment-account">a/n SIBRA AMULISI</p>
+                    </div>
+                    
+                    <!-- ShopeePay -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-shopping-bag"></i>
+                                <span>ShopeePay</span>
+                            </div>
+                            <button class="copy-btn" data-number="087862600313">
+                                <i class="far fa-copy"></i> Salin
+                            </button>
+                        </div>
+                        <p class="payment-number">087862600313</p>
+                        <p class="payment-account">a/n SIBRA AMULISI</p>
+                    </div>
+                    
+                    <!-- SeaBank -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-university"></i>
+                                <span>SeaBank</span>
+                            </div>
+                            <button class="copy-btn" data-number="901125967718">
+                                <i class="far fa-copy"></i> Salin
+                            </button>
+                        </div>
+                        <p class="payment-number">901125967718</p>
+                        <p class="payment-account">a/n SIBRA AMULISI</p>
+                    </div>
+                    
+                    <!-- Bank Jago -->
+                    <div class="payment-method">
+                        <div class="payment-header">
+                            <div class="payment-name">
+                                <i class="fas fa-university"></i>
+                                <span>Bank Jago</span>
+                            </div>
+                            <button class="copy-btn" data-number="102672395274">
+                                <i class="far fa-copy"></i> Salin
+                            </button>
+                        </div>
+                        <p class="payment-number">102672395274</p>
+                        <p class="payment-account">a/n SIBRA AMULISI</p>
                     </div>
                 </div>
-                
-                <!-- Order summary -->
-                <div class="order-summary">
-                    <h2 style="color: var(--orange); margin-bottom: 20px; border-bottom: 2px solid rgba(255,152,0,0.3); padding-bottom: 10px;">
-                        <i class="fas fa-shopping-cart"></i> Ringkasan Pesanan
-                    </h2>
-                    <div class="summary-item">
-                        <span>ID MLBB:</span>
-                        <span id="summary-id">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Nickname:</span>
-                        <span id="summary-nickname">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>BBCoin:</span>
-                        <span id="summary-bbcoin">-</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Metode Pembayaran:</span>
-                        <span id="summary-payment">-</span>
-                    </div>
-                    <div class="summary-item total">
-                        <span>Total Bayar:</span>
-                        <span id="summary-total">IDR 0</span>
-                    </div>
-                </div>
-                
-                <!-- Order button -->
-                <button class="order-btn" id="order-btn">
-                    <i class="fas fa-paper-plane"></i> Pesan Sekarang
-                </button>
-            </div>
+            </section>
+        </div>
+        
+        <!-- Order button -->
+        <div class="order-section">
+            <button class="order-btn" id="orderBtn">
+                <i class="fab fa-whatsapp"></i> PESAN SEKARANG
+            </button>
         </div>
         
         <!-- Footer -->
         <footer>
-            <p>Pastikan data yang Anda masukkan sudah benar sebelum melakukan pemesanan</p>
-            <p class="wa-contact">Konfirmasi pembayaran: WhatsApp 6287862600313</p>
-            <p>&copy; 2023 SIBGRIZLY - BBCoin Advance Server Mobile Legends</p>
+            <p>&copy; 2023 SIBGRIZLY - BB Coin Advance Server Mobile Legends</p>
+            <p>Setelah melakukan pembayaran, kirim bukti transfer ke WhatsApp:</p>
+            <a href="https://wa.me/6287862600313" class="whatsapp-contact" target="_blank">
+                <i class="fab fa-whatsapp"></i> 6287862600313
+            </a>
+            <p style="margin-top: 15px; color: #ffcc00;">Proses cepat, aman, dan terpercaya</p>
         </footer>
     </div>
 
     <script>
-        // Data harga BBCoin
-        const priceList = [
-            { bbc: "5K BBC", price: 20000 },
-            { bbc: "10K BBC", price: 40000 },
-            { bbc: "15K BBC", price: 60000 },
-            { bbc: "20K BBC", price: 80000 },
-            { bbc: "25K BBC", price: 100000 },
-            { bbc: "30K BBC", price: 120000 },
-            { bbc: "35K BBC", price: 140000 },
-            { bbc: "40K BBC", price: 160000 },
-            { bbc: "45K BBC", price: 180000 },
-            { bbc: "50K BBC", price: 200000 },
-            { bbc: "55K BBC", price: 220000 },
-            { bbc: "60K BBC", price: 240000 },
-            { bbc: "65K BBC", price: 260000 },
-            { bbc: "70K BBC", price: 280000 },
-            { bbc: "75K BBC", price: 300000 },
-            { bbc: "80K BBC", price: 320000 },
-            { bbc: "85K BBC", price: 340000 },
-            { bbc: "90K BBC", price: 360000 },
-            { bbc: "95K BBC", price: 380000 },
-            { bbc: "100K BBC", price: 400000 }
+        // Data pricelist
+        const pricelist = [
+            { amount: "5K BBC", price: "IDR 20.000" },
+            { amount: "10K BBC", price: "IDR 40.000" },
+            { amount: "15K BBC", price: "IDR 60.000" },
+            { amount: "20K BBC", price: "IDR 80.000" },
+            { amount: "25K BBC", price: "IDR 100.000" },
+            { amount: "30K BBC", price: "IDR 120.000" },
+            { amount: "35K BBC", price: "IDR 140.000" },
+            { amount: "40K BBC", price: "IDR 160.000" },
+            { amount: "45K BBC", price: "IDR 180.000" },
+            { amount: "50K BBC", price: "IDR 200.000" }
         ];
-
-        // Data metode pembayaran
-        const paymentMethods = [
-            { 
-                name: "OVO", 
-                number: "087762133437", 
-                account: "SIBRA AMULISI",
-                icon: "fas fa-mobile-alt",
-                color: "#4C2A86"
-            },
-            { 
-                name: "DANA", 
-                number: "087762133437", 
-                account: "SIBRA AMULISI",
-                icon: "fas fa-wallet",
-                color: "#00AEF0"
-            },
-            { 
-                name: "GOPAY", 
-                number: "087862600313", 
-                account: "SIBRA AMULISI",
-                icon: "fas fa-credit-card",
-                color: "#00AEEF"
-            },
-            { 
-                name: "SHOPEEPAY", 
-                number: "087862600313", 
-                account: "SIBRA AMULISI",
-                icon: "fas fa-shopping-bag",
-                color: "#EE4D2D"
-            },
-            { 
-                name: "SEABANK", 
-                number: "901125967718", 
-                account: "SIBRA AMULISI",
-                icon: "fas fa-university",
-                color: "#0D6EFD"
-            },
-            { 
-                name: "BANK JAGO", 
-                number: "102672395274", 
-                account: "SIBRA AMULISI",
-                icon: "fas fa-landmark",
-                color: "#6CC24A"
+        
+        // Inisialisasi variabel
+        let selectedPrice = null;
+        
+        // Fungsi untuk membuat background animasi
+        function createAnimatedBackground() {
+            const bgContainer = document.getElementById('animatedBg');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('bg-particle');
+                
+                // Ukuran random
+                const size = Math.random() * 150 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posisi random
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
+                
+                // Warna dengan variasi merah/kuning
+                const hue = Math.random() > 0.5 ? 0 : 50;
+                particle.style.backgroundColor = `hsla(${hue}, 100%, 50%, 0.05)`;
+                
+                // Animasi dengan delay random
+                const delay = Math.random() * 20;
+                particle.style.animationDelay = `${delay}s`;
+                
+                bgContainer.appendChild(particle);
             }
-        ];
-
-        // State aplikasi
-        let selectedBBC = null;
-        let selectedPayment = null;
-        let orderData = {
-            id: "",
-            nickname: "",
-            bbcoin: "",
-            payment: "",
-            total: 0
-        };
-
-        // Fungsi untuk memformat angka menjadi format mata uang IDR
-        function formatCurrency(amount) {
-            return "IDR " + amount.toLocaleString("id-ID");
         }
-
-        // Fungsi untuk menampilkan notifikasi
-        function showNotification(message) {
-            const notification = document.getElementById("notification");
-            notification.textContent = message;
-            notification.classList.add("show");
+        
+        // Fungsi untuk menampilkan pricelist
+        function renderPricelist() {
+            const pricelistContainer = document.getElementById('pricelist');
             
-            setTimeout(() => {
-                notification.classList.remove("show");
-            }, 3000);
-        }
-
-        // Fungsi untuk membuat daftar harga
-        function renderPriceList() {
-            const priceListContainer = document.querySelector(".price-list");
-            priceListContainer.innerHTML = "";
-            
-            priceList.forEach(item => {
-                const priceItem = document.createElement("div");
-                priceItem.className = "price-item";
-                if (selectedBBC === item.bbc) {
-                    priceItem.classList.add("selected");
-                }
+            pricelist.forEach((item, index) => {
+                const priceItem = document.createElement('div');
+                priceItem.classList.add('price-item');
+                priceItem.dataset.index = index;
                 
                 priceItem.innerHTML = `
-                    <div class="bbc">${item.bbc}</div>
-                    <div class="price">${formatCurrency(item.price)}</div>
+                    <div class="bb-amount">${item.amount}</div>
+                    <div class="bb-price">${item.price}</div>
                 `;
                 
-                priceItem.addEventListener("click", () => {
-                    // Hapus selected dari semua item
-                    document.querySelectorAll(".price-item").forEach(el => {
-                        el.classList.remove("selected");
+                priceItem.addEventListener('click', () => {
+                    // Hapus kelas selected dari semua item
+                    document.querySelectorAll('.price-item').forEach(el => {
+                        el.classList.remove('selected');
                     });
                     
-                    // Tambahkan selected ke item yang diklik
-                    priceItem.classList.add("selected");
-                    selectedBBC = item.bbc;
-                    orderData.bbcoin = item.bbc;
-                    orderData.total = item.price;
-                    
-                    updateOrderSummary();
+                    // Tambah kelas selected ke item yang dipilih
+                    priceItem.classList.add('selected');
+                    selectedPrice = item;
                 });
                 
-                priceListContainer.appendChild(priceItem);
+                pricelistContainer.appendChild(priceItem);
             });
         }
-
-        // Fungsi untuk membuat daftar metode pembayaran
-        function renderPaymentMethods() {
-            const paymentContainer = document.querySelector(".payment-methods");
-            paymentContainer.innerHTML = "";
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
             
-            paymentMethods.forEach(method => {
-                const paymentItem = document.createElement("div");
-                paymentItem.className = "payment-item";
-                if (selectedPayment === method.name) {
-                    paymentItem.classList.add("selected");
-                }
-                
-                paymentItem.innerHTML = `
-                    <div class="payment-icon" style="color: ${method.color};">
-                        <i class="${method.icon}"></i>
-                    </div>
-                    <div class="payment-details">
-                        <h4>${method.name}</h4>
-                        <p>${method.number}</p>
-                        <p>a/n ${method.account}</p>
-                        <button class="copy-btn" data-number="${method.number}">
-                            <i class="fas fa-copy"></i> Salin
-                        </button>
-                    </div>
-                `;
-                
-                paymentItem.addEventListener("click", (e) => {
-                    // Jika klik pada tombol salin, jangan pilih metode pembayaran
-                    if (e.target.closest(".copy-btn")) return;
-                    
-                    // Hapus selected dari semua item
-                    document.querySelectorAll(".payment-item").forEach(el => {
-                        el.classList.remove("selected");
-                    });
-                    
-                    // Tambahkan selected ke item yang diklik
-                    paymentItem.classList.add("selected");
-                    selectedPayment = method.name;
-                    orderData.payment = `${method.name} - ${method.number}`;
-                    
-                    updateOrderSummary();
+            notificationText.textContent = message;
+            
+            if (isError) {
+                notification.classList.add('error');
+            } else {
+                notification.classList.remove('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Fungsi untuk menyalin teks ke clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    showNotification(`Berhasil disalin: ${text}`);
+                })
+                .catch(err => {
+                    console.error('Gagal menyalin: ', err);
+                    showNotification('Gagal menyalin teks', true);
                 });
-                
-                paymentContainer.appendChild(paymentItem);
-            });
-            
-            // Tambahkan event listener untuk tombol salin
-            document.querySelectorAll(".copy-btn").forEach(button => {
-                button.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    const number = button.getAttribute("data-number");
-                    navigator.clipboard.writeText(number)
-                        .then(() => {
-                            showNotification(`Nomor ${number} telah disalin!`);
-                        })
-                        .catch(err => {
-                            console.error("Gagal menyalin: ", err);
-                        });
-                });
-            });
         }
-
-        // Fungsi untuk memperbarui ringkasan pesanan
-        function updateOrderSummary() {
-            const mlbbId = document.getElementById("mlbb-id").value;
-            const nickname = document.getElementById("nickname").value;
+        
+        // Fungsi untuk mengirim pesan WhatsApp
+        function sendWhatsAppMessage() {
+            const mlbbId = document.getElementById('mlbbId').value.trim();
+            const nickname = document.getElementById('nickname').value.trim();
             
-            orderData.id = mlbbId;
-            orderData.nickname = nickname;
-            
-            document.getElementById("summary-id").textContent = mlbbId || "-";
-            document.getElementById("summary-nickname").textContent = nickname || "-";
-            document.getElementById("summary-bbcoin").textContent = orderData.bbcoin || "-";
-            document.getElementById("summary-payment").textContent = orderData.payment || "-";
-            document.getElementById("summary-total").textContent = orderData.total > 0 ? formatCurrency(orderData.total) : "IDR 0";
-        }
-
-        // Fungsi untuk mengirim pesan ke WhatsApp
-        function sendToWhatsApp() {
-            // Validasi form
-            if (!orderData.id || !orderData.nickname) {
-                showNotification("Harap isi ID MLBB dan Nickname!");
+            // Validasi input
+            if (!mlbbId) {
+                showNotification('Masukkan ID MLBB Advance Server', true);
+                document.getElementById('mlbbId').focus();
                 return;
             }
             
-            if (!orderData.bbcoin) {
-                showNotification("Harap pilih jumlah BBCoin!");
+            if (!nickname) {
+                showNotification('Masukkan nickname MLBB', true);
+                document.getElementById('nickname').focus();
                 return;
             }
             
-            if (!orderData.payment) {
-                showNotification("Harap pilih metode pembayaran!");
+            if (!selectedPrice) {
+                showNotification('Pilih paket BB Coin terlebih dahulu', true);
                 return;
             }
             
-            // Format pesan untuk WhatsApp
-            const message = `Halo SIBGRIZLY, saya ingin memesan BBCoin Advance Server MLBB:
-
-ID MLBB: ${orderData.id}
-Nickname: ${orderData.nickname}
-BBCoin: ${orderData.bbcoin}
-Metode Pembayaran: ${orderData.payment}
-Total: ${formatCurrency(orderData.total)}
-
-Saya akan mengirimkan bukti transfer segera.`;
+            // Format pesan WhatsApp
+            const message = `Halo SIBGRIZLY, saya ingin memesan BB Coin Advance Server MLBB%0A%0A` +
+                           `*ID MLBB:* ${mlbbId}%0A` +
+                           `*Nickname:* ${nickname}%0A` +
+                           `*Paket:* ${selectedPrice.amount} (${selectedPrice.price})%0A%0A` +
+                           `Saya sudah transfer dan akan mengirimkan bukti pembayaran.`;
             
-            // Encode pesan untuk URL
-            const encodedMessage = encodeURIComponent(message);
+            // Tampilkan loading
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('active');
             
-            // Buat link WhatsApp
-            const whatsappUrl = `https://wa.me/6287862600313?text=${encodedMessage}`;
-            
-            // Buka link WhatsApp di tab baru
-            window.open(whatsappUrl, "_blank");
+            // Simulasi loading sebelum membuka WhatsApp
+            setTimeout(() => {
+                loadingOverlay.classList.remove('active');
+                // Buka WhatsApp
+                window.open(`https://wa.me/6287862600313?text=${message}`, '_blank');
+            }, 1500);
         }
-
-        // Fungsi untuk mendownload QR Code
-        function downloadQRCode() {
-            const qrImage = document.getElementById("qris-image");
-            const imageUrl = qrImage.src;
+        
+        // Inisialisasi event listeners setelah DOM dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            // Buat background animasi
+            createAnimatedBackground();
             
-            // Buat elemen anchor untuk download
-            const a = document.createElement("a");
-            a.href = imageUrl;
-            a.download = "qris-sibgrizzly.png";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            // Render pricelist
+            renderPricelist();
             
-            showNotification("QR Code berhasil didownload!");
-        }
-
-        // Inisialisasi aplikasi
-        document.addEventListener("DOMContentLoaded", () => {
-            // Render daftar harga dan metode pembayaran
-            renderPriceList();
-            renderPaymentMethods();
-            
-            // Event listener untuk input form
-            document.getElementById("mlbb-id").addEventListener("input", updateOrderSummary);
-            document.getElementById("nickname").addEventListener("input", updateOrderSummary);
+            // Event listener untuk tombol salin
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const number = e.currentTarget.getAttribute('data-number');
+                    copyToClipboard(number);
+                });
+            });
             
             // Event listener untuk tombol pesan
-            document.getElementById("order-btn").addEventListener("click", sendToWhatsApp);
+            document.getElementById('orderBtn').addEventListener('click', sendWhatsAppMessage);
             
-            // Event listener untuk tombol download QR
-            document.getElementById("download-qr").addEventListener("click", downloadQRCode);
-            
-            // Pilih item pertama di daftar harga dan pembayaran secara default
-            if (priceList.length > 0) {
-                selectedBBC = priceList[0].bbc;
-                orderData.bbcoin = priceList[0].bbc;
-                orderData.total = priceList[0].price;
-                document.querySelector(".price-item").classList.add("selected");
-            }
-            
-            if (paymentMethods.length > 0) {
-                selectedPayment = paymentMethods[0].name;
-                orderData.payment = `${paymentMethods[0].name} - ${paymentMethods[0].number}`;
-                document.querySelector(".payment-item").classList.add("selected");
-            }
-            
-            updateOrderSummary();
+            // Auto select harga pertama
+            document.querySelector('.price-item').click();
         });
     </script>
 </body>
