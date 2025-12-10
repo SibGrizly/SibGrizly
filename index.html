@@ -3,1108 +3,859 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIBGRIZLY - Gift BB Coin Advance Server MLBB</title>
+    <title>SIBGRIZLY - Gift BB Coin Advance Server Mobile Legends</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #ff2e2e;
-            --primary-dark: #cc0000;
-            --secondary: #ff8c00;
-            --accent: #ffd700;
-            --dark: #0a0a0a;
-            --dark-card: #151515;
-            --darker: #050505;
-            --light: #ffffff;
-            --gray: #888;
-            --success: #00c853;
-            --glow: 0 0 15px rgba(255, 46, 46, 0.7);
-            --glow-light: 0 0 30px rgba(255, 46, 46, 0.4);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --primary-red: #d32f2f;
+            --dark-red: #9a0007;
+            --black: #121212;
+            --light-black: #1e1e1e;
+            --white: #ffffff;
+            --orange: #ff9800;
+            --light-orange: #ffb74d;
+        }
+
         body {
-            font-family: 'Exo 2', sans-serif;
-            background-color: var(--darker);
-            color: var(--light);
-            min-height: 100vh;
+            background-color: var(--black);
+            color: var(--white);
             overflow-x: hidden;
+            min-height: 100vh;
             position: relative;
         }
-        
-        /* Background dengan efek partikel */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 46, 46, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(255, 140, 0, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 20%),
-                linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 30%, #0a0a1a 70%, #0a0a0a 100%);
-        }
-        
-        /* Grid lines background */
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background-image: 
-                linear-gradient(rgba(255, 46, 46, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 46, 46, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.5;
-        }
-        
-        /* Floating particles */
-        .floating-particles {
+
+        /* Background bergerak */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 152, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(211, 47, 47, 0.15) 0%, transparent 40%),
+                linear-gradient(45deg, rgba(18, 18, 18, 0.95), rgba(30, 30, 30, 0.95));
             overflow: hidden;
         }
-        
-        .particle {
+
+        .animated-bg::before {
+            content: '';
             position: absolute;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 152, 0, 0.05) 2px, transparent 3px),
+                radial-gradient(circle at 70% 70%, rgba(211, 47, 47, 0.05) 2px, transparent 3px);
+            background-size: 80px 80px;
+            animation: moveBackground 40s linear infinite;
         }
-        
-        @keyframes float {
+
+        @keyframes moveBackground {
             0% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, 50px) rotate(120deg); }
-            66% { transform: translate(-20px, 80px) rotate(240deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
         }
-        
-        /* Container utama */
+
         .container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
-        
-        /* Header */
+
         header {
             text-align: center;
-            padding: 30px 0 50px;
-            position: relative;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-red);
         }
-        
-        .logo-container {
+
+        .logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            gap: 20px;
-        }
-        
-        .logo-icon {
-            font-size: 3.5rem;
-            color: var(--primary);
-            text-shadow: var(--glow);
-            animation: pulse 2s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: var(--glow); }
-            100% { transform: scale(1.05); text-shadow: 0 0 25px rgba(255, 46, 46, 0.9); }
-        }
-        
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
-            font-weight: 900;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            letter-spacing: 2px;
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--gray);
+            gap: 15px;
             margin-bottom: 10px;
-            letter-spacing: 1px;
         }
-        
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
+
+        .logo i {
+            font-size: 2.8rem;
+            color: var(--orange);
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
+        }
+
+        h1 {
             font-size: 2.5rem;
-            margin: 25px 0;
-            color: var(--light);
-            text-shadow: 0 0 10px rgba(255, 46, 46, 0.5);
-            position: relative;
-            display: inline-block;
+            color: var(--white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
-        
-        .main-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--primary), transparent);
+
+        h1 span {
+            color: var(--primary-red);
         }
-        
-        /* Card Styling */
-        .card {
-            background: rgba(21, 21, 21, 0.85);
+
+        .tagline {
+            color: var(--light-orange);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            background: rgba(30, 30, 30, 0.85);
             border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 46, 46, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s, box-shadow 0.3s;
-            overflow: hidden;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 152, 0, 0.2);
             position: relative;
+            overflow: hidden;
         }
-        
-        .card::before {
+
+        .section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, var(--primary-red), var(--orange));
         }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 46, 46, 0.2);
-        }
-        
-        .card-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: var(--secondary);
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .card-title i {
-            color: var(--primary);
-        }
-        
-        /* Form Input */
-        .input-group {
-            margin-bottom: 25px;
-        }
-        
-        .input-label {
-            display: block;
-            margin-bottom: 10px;
-            color: #ccc;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .input-container {
-            position: relative;
-        }
-        
-        .input-box {
-            width: 100%;
-            padding: 18px 20px;
-            background: rgba(30, 30, 30, 0.9);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: var(--light);
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            font-family: 'Exo 2', sans-serif;
-        }
-        
-        .input-box:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(255, 46, 46, 0.3);
-        }
-        
-        .input-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-        }
-        
-        /* Coin Grid */
-        .coin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .coin-option {
-            background: rgba(30, 30, 30, 0.9);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .coin-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 46, 46, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .coin-option:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary);
-            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
-        }
-        
-        .coin-option:hover::before {
-            opacity: 1;
-        }
-        
-        .coin-option.selected {
-            border-color: var(--primary);
-            background: rgba(255, 46, 46, 0.1);
-            box-shadow: var(--glow-light);
-            transform: translateY(-5px);
-        }
-        
-        .coin-option.selected::before {
-            opacity: 1;
-        }
-        
-        .coin-amount {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-        
-        .coin-price {
-            color: #ccc;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        
-        /* Payment Methods */
-        .payment-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        
-        .payment-card {
-            background: rgba(30, 30, 30, 0.9);
-            border-radius: 12px;
-            padding: 25px;
-            border: 1px solid rgba(255, 46, 46, 0.2);
-            transition: transform 0.3s;
-        }
-        
-        .payment-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .payment-title {
-            font-family: 'Orbitron', sans-serif;
+
+        .section-title {
+            color: var(--orange);
             font-size: 1.5rem;
-            color: var(--secondary);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .qr-container {
-            text-align: center;
+
+        .section-title i {
+            color: var(--primary-red);
+        }
+
+        /* Form Input */
+        .input-group {
             margin-bottom: 20px;
         }
-        
-        .qr-box {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border-radius: 12px;
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 2px rgba(255, 152, 0, 0.2);
+        }
+
+        /* Pricelist */
+        .pricelist-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .pricelist-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .pricelist-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .pricelist-container::-webkit-scrollbar-thumb {
+            background: var(--primary-red);
+            border-radius: 4px;
+        }
+
+        .coin-option {
+            background: rgba(211, 47, 47, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .coin-option:hover {
+            background: rgba(211, 47, 47, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .coin-option.selected {
+            background: rgba(211, 47, 47, 0.3);
+            border-color: var(--orange);
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+        }
+
+        .coin-amount {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--orange);
+        }
+
+        .coin-price {
+            font-size: 0.9rem;
+            color: var(--white);
+            margin-top: 5px;
+        }
+
+        /* Metode Pembayaran */
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            background: rgba(255, 152, 0, 0.1);
+        }
+
+        .payment-method.selected {
+            background: rgba(255, 152, 0, 0.2);
+            border-color: var(--orange);
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--orange);
+        }
+
+        .payment-name {
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        .payment-details {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .payment-info {
+            margin-bottom: 15px;
+        }
+
+        .payment-info p {
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .payment-number {
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .qr-box::before {
-            content: '';
-            position: absolute;
-            width: 150%;
-            height: 150%;
-            background: conic-gradient(transparent, var(--primary), transparent 30%);
-            animation: rotate 3s linear infinite;
-        }
-        
-        .qr-box img {
-            width: 90%;
-            height: 90%;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
             border-radius: 8px;
-            z-index: 1;
-            position: relative;
-            background-color: white;
-            padding: 10px;
+            margin-bottom: 15px;
         }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .payment-number span {
+            font-family: monospace;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: var(--white);
         }
-        
+
+        .copy-btn {
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .copy-btn:hover {
+            background: var(--dark-red);
+        }
+
+        .copy-btn i {
+            margin-right: 5px;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .qr-code {
+            max-width: 200px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 2px solid rgba(255, 152, 0, 0.5);
+        }
+
         .qr-note {
-            color: var(--gray);
-            font-style: italic;
+            color: var(--light-orange);
             font-size: 0.9rem;
         }
-        
-        .payment-list {
-            margin-top: 20px;
+
+        /* Total Pesanan */
+        .order-summary {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 152, 0, 0.3);
         }
-        
-        .payment-item {
+
+        .order-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .payment-item:last-child {
+
+        .order-row:last-child {
             border-bottom: none;
-        }
-        
-        .payment-name {
-            font-weight: 600;
-            color: #ddd;
-        }
-        
-        .payment-number {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            font-size: 1.1rem;
-        }
-        
-        .copy-btn {
-            background: rgba(255, 46, 46, 0.2);
-            color: var(--light);
-            border: 1px solid var(--primary);
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .copy-btn:hover {
-            background: var(--primary);
-            box-shadow: 0 0 15px rgba(255, 46, 46, 0.5);
-        }
-        
-        .copy-btn.copied {
-            background: var(--success);
-            border-color: var(--success);
-        }
-        
-        .payment-note {
-            margin-top: 20px;
-            color: var(--gray);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        
-        /* Total Section */
-        .total-section {
-            background: linear-gradient(135deg, rgba(255, 46, 46, 0.1), rgba(255, 140, 0, 0.1));
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            border: 1px solid rgba(255, 46, 46, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--glow-light);
-        }
-        
-        .total-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            color: #ddd;
-        }
-        
-        .total-amount {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-        
-        /* Order Button */
-        .order-btn-container {
-            text-align: center;
-            margin: 40px 0;
-        }
-        
-        .order-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 25px 60px;
-            font-size: 1.8rem;
-            font-weight: 900;
-            font-family: 'Orbitron', sans-serif;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(255, 46, 46, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .order-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .order-btn:hover::before {
-            left: 100%;
-        }
-        
-        .order-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 46, 46, 0.7);
-            letter-spacing: 3px;
-        }
-        
-        .order-btn:active {
-            transform: translateY(-2px);
-        }
-        
-        .order-btn:disabled {
-            background: linear-gradient(135deg, #555, #777);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-            letter-spacing: 2px;
-        }
-        
-        .order-btn:disabled:hover::before {
-            left: -100%;
-        }
-        
-        /* Warning Box */
-        .warning-box {
-            background: rgba(255, 46, 46, 0.1);
-            border-left: 5px solid var(--primary);
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .warning-box::before {
-            content: '!';
-            position: absolute;
-            top: -30px;
-            left: 10px;
-            font-size: 8rem;
-            color: rgba(255, 46, 46, 0.1);
             font-weight: bold;
-            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--orange);
         }
-        
-        .warning-title {
-            color: var(--primary);
+
+        /* Tombol Pesan */
+        .order-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-red), var(--orange));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            padding: 18px;
             font-size: 1.3rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
         }
-        
+
+        .order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.6);
+        }
+
+        .order-btn:active {
+            transform: translateY(0);
+        }
+
+        .order-btn i {
+            margin-right: 10px;
+        }
+
         /* Footer */
         footer {
             text-align: center;
-            padding: 40px 0 20px;
-            color: var(--gray);
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 152, 0, 0.2);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 50px;
         }
-        
-        .footer-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s ease;
         }
-        
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .coin-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            }
-            
-            .payment-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .total-section {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
         }
-        
+
+        /* Responsiveness */
         @media (max-width: 768px) {
-            .logo-text {
-                font-size: 2.8rem;
-            }
-            
-            .main-title {
+            h1 {
                 font-size: 2rem;
             }
             
-            .total-amount {
-                font-size: 2.5rem;
+            .section {
+                padding: 20px;
             }
             
-            .order-btn {
-                padding: 20px 40px;
-                font-size: 1.5rem;
+            .pricelist-container {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             }
             
-            .card {
-                padding: 25px 20px;
+            .payment-method {
+                min-width: calc(50% - 10px);
             }
         }
-        
-        @media (max-width: 576px) {
-            .container {
-                padding: 15px;
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
             }
             
-            .logo-container {
-                flex-direction: column;
-                gap: 10px;
+            .logo i {
+                font-size: 2rem;
             }
             
-            .logo-text {
-                font-size: 2.2rem;
+            .pricelist-container {
+                grid-template-columns: 1fr 1fr;
             }
             
-            .coin-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .payment-method {
+                min-width: 100%;
             }
-            
-            .qr-box {
-                width: 180px;
-                height: 180px;
-            }
-        }
-        
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(20, 20, 20, 0.8);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
-    <!-- Background Animation -->
-    <div class="bg-animation"></div>
-    <div class="grid-bg"></div>
-    <div class="floating-particles" id="particles"></div>
-    
-    <!-- Main Container -->
+    <!-- Background bergerak -->
+    <div class="animated-bg"></div>
+
     <div class="container">
         <header>
-            <div class="logo-container">
-                <i class="fas fa-crown logo-icon"></i>
-                <h1 class="logo-text">SIBGRIZLY</h1>
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <h1>SIB<span>GRIZLY</span></h1>
             </div>
-            <p class="tagline">PREMIUM GIFT BB COIN SERVICE</p>
-            <h2 class="main-title">ADVANCE SERVER MOBILE LEGENDS</h2>
+            <p class="tagline">Gift BB Coin Advance Server Mobile Legends</p>
         </header>
-        
-        <!-- User Data Form -->
-        <div class="card">
-            <h3 class="card-title"><i class="fas fa-id-card"></i> DATA AKUN MOBILE LEGENDS</h3>
-            <div class="input-group">
-                <label class="input-label">ID MOBILE LEGENDS</label>
-                <div class="input-container">
-                    <input type="text" class="input-box" id="mlbbId" placeholder="Masukkan ID MLBB (Contoh: 123456789)" maxlength="20">
-                    <i class="fas fa-gamepad input-icon"></i>
-                </div>
-            </div>
-            <div class="input-group">
-                <label class="input-label">NICKNAME</label>
-                <div class="input-container">
-                    <input type="text" class="input-box" id="nickname" placeholder="Masukkan Nickname (Contoh: ProPlayerz)" maxlength="30">
-                    <i class="fas fa-user input-icon"></i>
-                </div>
-            </div>
-        </div>
-        
-        <!-- BB Coin Selection -->
-        <div class="card">
-            <h3 class="card-title"><i class="fas fa-coins"></i> PILIH JUMLAH BB COIN</h3>
-            <p class="input-label">Pilih paket BB Coin yang ingin Anda beli:</p>
-            <div class="coin-grid" id="coinOptions">
-                <!-- Coin options will be populated by JavaScript -->
-            </div>
-        </div>
-        
-        <!-- Payment Methods -->
-        <div class="card">
-            <h3 class="card-title"><i class="fas fa-credit-card"></i> METODE PEMBAYARAN</h3>
-            <div class="payment-container">
-                <!-- QRIS -->
-                <div class="payment-card">
-                    <h4 class="payment-title"><i class="fas fa-qrcode"></i> QRIS</h4>
-                    <div class="qr-container">
-                        <div class="qr-box">
-                            <img src="https://files.catbox.moe/b3xttn.png" alt="QR Code Pembayaran">
-                        </div>
-                        <p class="qr-note">(Tekan lama untuk mendownload QR code)</p>
+
+        <div class="content-wrapper">
+            <!-- Form Input dan Pricelist -->
+            <div class="left-section">
+                <!-- Form Input -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Data Pembeli</h2>
+                    <div class="input-group">
+                        <label for="mlbb-id"><i class="fas fa-id-card"></i> ID MLBB</label>
+                        <input type="text" id="mlbb-id" placeholder="Contoh: 123456789 (1234)">
+                    </div>
+                    <div class="input-group">
+                        <label for="nickname"><i class="fas fa-user-tag"></i> Nickname</label>
+                        <input type="text" id="nickname" placeholder="Masukkan nickname MLBB">
                     </div>
                 </div>
-                
-                <!-- E-Wallet & Bank -->
-                <div class="payment-card">
-                    <h4 class="payment-title"><i class="fas fa-wallet"></i> E-WALLET & TRANSFER BANK</h4>
-                    <div class="payment-list">
-                        <div class="payment-item">
-                            <span class="payment-name">OVO</span>
-                            <span class="payment-number">087762133437</span>
-                            <button class="copy-btn" data-number="087762133437">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
+
+                <!-- Pricelist -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-tags"></i> Pilih BB Coin</h2>
+                    <div class="pricelist-container" id="pricelist">
+                        <!-- Coin options will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metode Pembayaran dan Total -->
+            <div class="right-section">
+                <!-- Metode Pembayaran -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
+                    <div class="payment-methods">
+                        <div class="payment-method selected" data-method="qris">
+                            <div class="payment-icon"><i class="fas fa-qrcode"></i></div>
+                            <div class="payment-name">QRIS</div>
                         </div>
-                        <div class="payment-item">
-                            <span class="payment-name">DANA</span>
-                            <span class="payment-number">087762133437</span>
-                            <button class="copy-btn" data-number="087762133437">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
+                        <div class="payment-method" data-method="dana">
+                            <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+                            <div class="payment-name">DANA</div>
                         </div>
-                        <div class="payment-item">
-                            <span class="payment-name">GOPAY</span>
-                            <span class="payment-number">087862600313</span>
-                            <button class="copy-btn" data-number="087862600313">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
+                        <div class="payment-method" data-method="ovo">
+                            <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
+                            <div class="payment-name">OVO</div>
                         </div>
-                        <div class="payment-item">
-                            <span class="payment-name">SHOPEEPAY</span>
-                            <span class="payment-number">087862600313</span>
-                            <button class="copy-btn" data-number="087862600313">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
-                        </div>
-                        <div class="payment-item">
-                            <span class="payment-name">SEABANK</span>
-                            <span class="payment-number">901125967718</span>
-                            <button class="copy-btn" data-number="901125967718">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
-                        </div>
-                        <div class="payment-item">
-                            <span class="payment-name">BANK JAGO</span>
-                            <span class="payment-number">102672395274</span>
-                            <button class="copy-btn" data-number="102672395274">
-                                <i class="fas fa-copy"></i> Salin
-                            </button>
+                        <div class="payment-method" data-method="gopay">
+                            <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="payment-name">GOPAY</div>
                         </div>
                     </div>
-                    <p class="payment-note">a/n SIBRA AMULISI</p>
+
+                    <!-- Detail Pembayaran -->
+                    <div class="payment-details active" id="qris-details">
+                        <div class="qr-container">
+                            <img src="https://files.catbox.moe/b3xttn.png" alt="QR Code Pembayaran" class="qr-code">
+                            <p class="qr-note"><i class="fas fa-info-circle"></i> QR code: pencet lama untuk download</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="dana-details">
+                        <div class="payment-info">
+                            <p>Transfer ke nomor DANA berikut:</p>
+                            <div class="payment-number">
+                                <span>087762133437</span>
+                                <button class="copy-btn" data-number="087762133437"><i class="fas fa-copy"></i> Salin</button>
+                            </div>
+                            <p>a/n SIBRA AMULISI</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="ovo-details">
+                        <div class="payment-info">
+                            <p>Transfer ke nomor OVO berikut:</p>
+                            <div class="payment-number">
+                                <span>087762133437</span>
+                                <button class="copy-btn" data-number="087762133437"><i class="fas fa-copy"></i> Salin</button>
+                            </div>
+                            <p>a/n SIBRA AMULISI</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="gopay-details">
+                        <div class="payment-info">
+                            <p>Transfer ke nomor GOPAY berikut:</p>
+                            <div class="payment-number">
+                                <span>087862600313</span>
+                                <button class="copy-btn" data-number="087862600313"><i class="fas fa-copy"></i> Salin</button>
+                            </div>
+                            <p>a/n SIBRA AMULISI</p>
+                        </div>
+                    </div>
+
+                    <!-- Metode pembayaran lainnya -->
+                    <div class="other-methods">
+                        <p><strong>Metode pembayaran lainnya:</strong></p>
+                        <div class="payment-info">
+                            <p><i class="fas fa-store"></i> Shopeepay: 087862600313 a/n SIBRA AMULISI</p>
+                            <p><i class="fas fa-university"></i> Seabank: 901125967718 a/n SIBRA AMULISI</p>
+                            <p><i class="fas fa-university"></i> Bank Jago: 102672395274 a/n SIBRA AMULISI</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Pesanan -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-receipt"></i> Total Pesanan</h2>
+                    <div class="order-summary">
+                        <div class="order-row">
+                            <span>BB Coin yang dibeli:</span>
+                            <span id="selected-coin">-</span>
+                        </div>
+                        <div class="order-row">
+                            <span>Harga:</span>
+                            <span id="coin-price">IDR 0</span>
+                        </div>
+                        <div class="order-row">
+                            <span>Metode Pembayaran:</span>
+                            <span id="selected-method">QRIS</span>
+                        </div>
+                        <div class="order-row">
+                            <span>Total yang harus dibayar:</span>
+                            <span id="total-payment">IDR 0</span>
+                        </div>
+                    </div>
+
+                    <button class="order-btn" id="order-button">
+                        <i class="fas fa-shopping-cart"></i> Pesan Sekarang
+                    </button>
                 </div>
             </div>
         </div>
-        
-        <!-- Total Payment -->
-        <div class="total-section">
-            <div class="total-label">TOTAL PEMBAYARAN:</div>
-            <div class="total-amount" id="totalAmount">Rp 0</div>
-        </div>
-        
-        <!-- Order Button -->
-        <div class="order-btn-container">
-            <button class="order-btn" id="orderBtn" disabled>
-                <i class="fas fa-bolt"></i> PESAN SEKARANG
-            </button>
-        </div>
-        
-        <!-- Warning Box -->
-        <div class="warning-box">
-            <div class="warning-title">PENTING!</div>
-            <p>Setelah melakukan pembayaran, harap segera kirim bukti transfer ke WhatsApp: <strong>6287862600313</strong>. Format data pembelian akan terkirim otomatis setelah Anda menekan tombol "PESAN SEKARANG". Pastikan data yang dimasukkan sudah benar sebelum melakukan pemesanan.</p>
-        </div>
-        
-        <!-- Footer -->
+
         <footer>
-            <div class="footer-logo">SIBGRIZLY</div>
-            <p>Gift BB Coin Advance Server Mobile Legends</p>
-            <p>&copy; 2023 SIBGRIZLY. Layanan resmi untuk Advance Server Mobile Legends.</p>
-            <p style="margin-top: 20px; color: #666; font-size: 0.8rem;">*BB Coin hanya dapat digunakan di Advance Server Mobile Legends</p>
+            <p>© 2023 SIBGRIZLY - Gift BB Coin Advance Server Mobile Legends</p>
+            <p>WhatsApp: 6287862600313 | Email: sibgrizly@example.com</p>
         </footer>
     </div>
-    
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notification-text">Teks berhasil disalin!</span>
+    </div>
+
     <script>
-        // Data harga BB Coin
-        const coinPrices = [
-            { amount: "5K BBC", price: 20000 },
-            { amount: "10K BBC", price: 40000 },
-            { amount: "15K BBC", price: 60000 },
-            { amount: "20K BBC", price: 80000 },
-            { amount: "25K BBC", price: 100000 },
-            { amount: "30K BBC", price: 120000 },
-            { amount: "35K BBC", price: 140000 },
-            { amount: "40K BBC", price: 160000 },
-            { amount: "45K BBC", price: 180000 },
-            { amount: "50K BBC", price: 200000 },
-            { amount: "55K BBC", price: 220000 },
-            { amount: "60K BBC", price: 240000 },
-            { amount: "65K BBC", price: 260000 },
-            { amount: "70K BBC", price: 280000 },
-            { amount: "75K BBC", price: 300000 },
-            { amount: "80K BBC", price: 320000 },
-            { amount: "85K BBC", price: 340000 },
-            { amount: "90K BBC", price: 360000 },
-            { amount: "95K BBC", price: 380000 },
-            { amount: "100K BBC", price: 400000 }
+        // Data Pricelist
+        const pricelist = [
+            { amount: "5K", coin: 5000, price: 20000 },
+            { amount: "10K", coin: 10000, price: 40000 },
+            { amount: "15K", coin: 15000, price: 60000 },
+            { amount: "20K", coin: 20000, price: 80000 },
+            { amount: "25K", coin: 25000, price: 100000 },
+            { amount: "30K", coin: 30000, price: 120000 },
+            { amount: "35K", coin: 35000, price: 140000 },
+            { amount: "40K", coin: 40000, price: 160000 },
+            { amount: "45K", coin: 45000, price: 180000 },
+            { amount: "50K", coin: 50000, price: 200000 },
+            { amount: "55K", coin: 55000, price: 220000 },
+            { amount: "60K", coin: 60000, price: 240000 },
+            { amount: "65K", coin: 65000, price: 260000 },
+            { amount: "70K", coin: 70000, price: 280000 },
+            { amount: "75K", coin: 75000, price: 300000 },
+            { amount: "80K", coin: 80000, price: 320000 },
+            { amount: "85K", coin: 85000, price: 340000 },
+            { amount: "90K", coin: 90000, price: 360000 },
+            { amount: "95K", coin: 95000, price: 380000 },
+            { amount: "100K", coin: 100000, price: 400000 }
         ];
-        
-        // State variables
+
+        // State aplikasi
         let selectedCoin = null;
-        let totalPrice = 0;
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create floating particles
-            createParticles();
+        let selectedPaymentMethod = "qris";
+
+        // Inisialisasi pricelist
+        function initPricelist() {
+            const pricelistContainer = document.getElementById("pricelist");
             
-            // Render coin options
-            renderCoinOptions();
-            
-            // Setup copy buttons
-            setupCopyButtons();
-            
-            // Setup order button
-            document.getElementById('orderBtn').addEventListener('click', placeOrder);
-            
-            // Update order button state on input
-            document.getElementById('mlbbId').addEventListener('input', updateOrderButton);
-            document.getElementById('nickname').addEventListener('input', updateOrderButton);
-            
-            // Add input validation
-            setupInputValidation();
-        });
-        
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 25;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random properties
-                const size = Math.random() * 10 + 5;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const opacity = Math.random() * 0.3 + 0.1;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                // Apply styles
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                particle.style.opacity = opacity;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                // Random color based on theme
-                const colors = ['#ff2e2e', '#ff8c00', '#ffd700'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // Render coin options
-        function renderCoinOptions() {
-            const container = document.getElementById('coinOptions');
-            container.innerHTML = '';
-            
-            coinPrices.forEach(coin => {
-                const option = document.createElement('div');
-                option.classList.add('coin-option');
-                option.dataset.amount = coin.amount;
-                option.dataset.price = coin.price;
-                
-                option.innerHTML = `
-                    <div class="coin-amount">${coin.amount}</div>
-                    <div class="coin-price">Rp ${coin.price.toLocaleString('id-ID')}</div>
+            pricelist.forEach(item => {
+                const coinOption = document.createElement("div");
+                coinOption.className = "coin-option";
+                coinOption.innerHTML = `
+                    <div class="coin-amount">${item.amount} BBC</div>
+                    <div class="coin-price">IDR ${item.price.toLocaleString()}</div>
                 `;
                 
-                option.addEventListener('click', function() {
-                    // Remove previous selection
-                    document.querySelectorAll('.coin-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // Select this option
-                    this.classList.add('selected');
-                    selectedCoin = {
-                        amount: this.dataset.amount,
-                        price: parseInt(this.dataset.price)
-                    };
-                    
-                    // Update total
-                    updateTotal();
-                    updateOrderButton();
+                coinOption.addEventListener("click", () => {
+                    selectCoin(item);
                 });
                 
-                container.appendChild(option);
+                pricelistContainer.appendChild(coinOption);
             });
+            
+            // Pilih item pertama secara default
+            if (pricelist.length > 0) {
+                selectCoin(pricelist[0]);
+            }
         }
-        
-        // Setup copy buttons
-        function setupCopyButtons() {
-            document.querySelectorAll('.copy-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const number = this.getAttribute('data-number');
+
+        // Pilih koin
+        function selectCoin(coin) {
+            selectedCoin = coin;
+            
+            // Hapus selected dari semua opsi
+            document.querySelectorAll(".coin-option").forEach(option => {
+                option.classList.remove("selected");
+            });
+            
+            // Tambahkan selected ke opsi yang diklik
+            event.target.closest(".coin-option").classList.add("selected");
+            
+            // Update tampilan
+            updateOrderSummary();
+        }
+
+        // Inisialisasi metode pembayaran
+        function initPaymentMethods() {
+            const paymentMethods = document.querySelectorAll(".payment-method");
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener("click", () => {
+                    // Hapus selected dari semua metode
+                    paymentMethods.forEach(m => {
+                        m.classList.remove("selected");
+                    });
+                    
+                    // Tambahkan selected ke metode yang diklik
+                    method.classList.add("selected");
+                    
+                    // Dapatkan metode yang dipilih
+                    selectedPaymentMethod = method.getAttribute("data-method");
+                    
+                    // Tampilkan detail pembayaran yang sesuai
+                    document.querySelectorAll(".payment-details").forEach(detail => {
+                        detail.classList.remove("active");
+                    });
+                    
+                    document.getElementById(`${selectedPaymentMethod}-details`).classList.add("active");
+                    
+                    // Update tampilan
+                    updateOrderSummary();
+                });
+            });
+            
+            // Inisialisasi tombol salin
+            document.querySelectorAll(".copy-btn").forEach(button => {
+                button.addEventListener("click", () => {
+                    const number = button.getAttribute("data-number");
                     copyToClipboard(number);
-                    
-                    // Visual feedback
-                    const originalHTML = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                    this.classList.add('copied');
-                    
-                    setTimeout(() => {
-                        this.innerHTML = originalHTML;
-                        this.classList.remove('copied');
-                    }, 2000);
+                    showNotification(`Nomor ${number} berhasil disalin!`);
                 });
             });
         }
-        
-        // Copy text to clipboard
-        function copyToClipboard(text) {
-            // Create temporary element
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            
-            // Select and copy
-            tempInput.select();
-            tempInput.setSelectionRange(0, 99999); // For mobile devices
-            document.execCommand('copy');
-            
-            // Clean up
-            document.body.removeChild(tempInput);
-        }
-        
-        // Setup input validation
-        function setupInputValidation() {
-            const mlbbIdInput = document.getElementById('mlbbId');
-            const nicknameInput = document.getElementById('nickname');
-            
-            // MLBB ID validation (only numbers)
-            mlbbIdInput.addEventListener('input', function() {
-                this.value = this.value.replace(/\D/g, '');
-            });
-            
-            // Nickname validation (no special characters)
-            nicknameInput.addEventListener('input', function() {
-                // Allow letters, numbers, spaces, and some special chars for nicknames
-                this.value = this.value.replace(/[^a-zA-Z0-9\s\-_]/g, '');
-            });
-        }
-        
-        // Update total amount
-        function updateTotal() {
+
+        // Update ringkasan pesanan
+        function updateOrderSummary() {
             if (selectedCoin) {
-                totalPrice = selectedCoin.price;
-                document.getElementById('totalAmount').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-            } else {
-                totalPrice = 0;
-                document.getElementById('totalAmount').textContent = 'Rp 0';
+                document.getElementById("selected-coin").textContent = `${selectedCoin.amount} BBC`;
+                document.getElementById("coin-price").textContent = `IDR ${selectedCoin.price.toLocaleString()}`;
+                document.getElementById("total-payment").textContent = `IDR ${selectedCoin.price.toLocaleString()}`;
             }
-        }
-        
-        // Update order button state
-        function updateOrderButton() {
-            const mlbbId = document.getElementById('mlbbId').value.trim();
-            const nickname = document.getElementById('nickname').value.trim();
-            const orderBtn = document.getElementById('orderBtn');
             
-            if (mlbbId && nickname && selectedCoin) {
-                orderBtn.disabled = false;
-            } else {
-                orderBtn.disabled = true;
-            }
-        }
-        
-        // Place order function
-        function placeOrder() {
-            const mlbbId = document.getElementById('mlbbId').value.trim();
-            const nickname = document.getElementById('nickname').value.trim();
+            // Update metode pembayaran
+            const methodNames = {
+                "qris": "QRIS",
+                "dana": "DANA",
+                "ovo": "OVO",
+                "gopay": "GOPAY"
+            };
             
-            // Validation
-            if (!mlbbId || !nickname || !selectedCoin) {
-                alert('Harap lengkapi semua data dan pilih jumlah BB Coin!');
+            document.getElementById("selected-method").textContent = methodNames[selectedPaymentMethod] || selectedPaymentMethod.toUpperCase();
+        }
+
+        // Fungsi untuk menyalin ke clipboard
+        function copyToClipboard(text) {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+
+        // Tampilkan notifikasi
+        function showNotification(message) {
+            const notification = document.getElementById("notification");
+            const notificationText = document.getElementById("notification-text");
+            
+            notificationText.textContent = message;
+            notification.classList.add("show");
+            
+            setTimeout(() => {
+                notification.classList.remove("show");
+            }, 3000);
+        }
+
+        // Fungsi untuk mengirim pesan ke WhatsApp
+        function sendToWhatsApp() {
+            const mlbbId = document.getElementById("mlbb-id").value.trim();
+            const nickname = document.getElementById("nickname").value.trim();
+            
+            // Validasi input
+            if (!mlbbId) {
+                showNotification("Harap masukkan ID MLBB!");
+                document.getElementById("mlbb-id").focus();
                 return;
             }
             
-            // Create WhatsApp message
-            const message = `Halo SIBGRIZLY, saya ingin membeli BB Coin Advance Server Mobile Legends dengan detail berikut:%0A%0A` +
-                           `📱 *ID MLBB*: ${mlbbId}%0A` +
-                           `👤 *Nickname*: ${nickname}%0A` +
-                           `🪙 *Jumlah BB Coin*: ${selectedCoin.amount}%0A` +
-                           `💰 *Total Pembayaran*: Rp ${selectedCoin.price.toLocaleString('id-ID')}%0A%0A` +
-                           `Saya telah melakukan transfer pembayaran.`;
+            if (!nickname) {
+                showNotification("Harap masukkan Nickname!");
+                document.getElementById("nickname").focus();
+                return;
+            }
             
-            // WhatsApp URL
-            const phoneNumber = '6287862600313';
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            if (!selectedCoin) {
+                showNotification("Harap pilih jumlah BB Coin!");
+                return;
+            }
             
-            // Open WhatsApp in new tab
-            window.open(whatsappUrl, '_blank');
+            // Format pesan
+            const methodNames = {
+                "qris": "QRIS",
+                "dana": "DANA",
+                "ovo": "OVO",
+                "gopay": "GOPAY"
+            };
             
-            // Show confirmation
-            showOrderConfirmation();
+            const paymentMethod = methodNames[selectedPaymentMethod] || selectedPaymentMethod.toUpperCase();
+            
+            const message = `Halo SIBGRIZLY, saya ingin memesan BB Coin Advance Server MLBB:
+
+ID MLBB: ${mlbbId}
+Nickname: ${nickname}
+BB Coin: ${selectedCoin.amount} BBC
+Harga: IDR ${selectedCoin.price.toLocaleString()}
+Metode Pembayaran: ${paymentMethod}
+
+Saya sudah transfer dan akan mengirimkan bukti transfer.`;
+
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Nomor WhatsApp tujuan
+            const phoneNumber = "6287862600313";
+            
+            // Buat URL WhatsApp
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Buka WhatsApp di tab baru
+            window.open(whatsappURL, "_blank");
+            
+            // Tampilkan notifikasi
+            showNotification("Mengarahkan ke WhatsApp...");
         }
-        
-        // Show order confirmation
-        function showOrderConfirmation() {
-            // Create modal
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.9);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                animation: fadeIn 0.3s;
-            `;
+
+        // Inisialisasi aplikasi saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            initPricelist();
+            initPaymentMethods();
+            updateOrderSummary();
             
-            modal.innerHTML = `
-                <div style="background: linear-gradient(135deg, #151515, #0a0a0a); padding: 40px; border-radius: 20px; text-align: center; max-width: 500px; width: 90%; border: 2px solid #ff2e2e; box-shadow: 0 0 40px rgba(255, 46, 46, 0.5);">
-                    <i class="fas fa-check-circle" style="font-size: 5rem; color: #00c853; margin-bottom: 20px;"></i>
-                    <h2 style="color: #ffd700; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">PESANAN BERHASIL DIBUAT!</h2>
-                    <p style="margin-bottom: 20px; line-height: 1.6;">Format pesanan telah disiapkan. Silakan lanjutkan dengan mengirim bukti transfer di WhatsApp yang terbuka. Pastikan untuk menyertakan bukti transfer.</p>
-                    <button id="closeModal" style="background: linear-gradient(135deg, #ff2e2e, #ff8c00); color: white; border: none; padding: 15px 40px; font-size: 1.2rem; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px;">TUTUP</button>
-                </div>
-            `;
+            // Event listener untuk tombol pesan
+            document.getElementById("order-button").addEventListener("click", sendToWhatsApp);
             
-            document.body.appendChild(modal);
-            
-            // Close modal button
-            document.getElementById('closeModal').addEventListener('click', function() {
-                document.body.removeChild(modal);
-                
-                // Reset form
-                resetForm();
+            // Validasi input
+            document.getElementById("mlbb-id").addEventListener("input", function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
             });
-            
-            // Close on background click
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                    resetForm();
-                }
-            });
-        }
-        
-        // Reset form
-        function resetForm() {
-            document.getElementById('mlbbId').value = '';
-            document.getElementById('nickname').value = '';
-            
-            // Remove coin selection
-            document.querySelectorAll('.coin-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            selectedCoin = null;
-            updateTotal();
-            updateOrderButton();
-        }
+        });
     </script>
 </body>
 </html>
