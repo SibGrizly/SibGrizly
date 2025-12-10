@@ -3,45 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIBGRIZLY - Gift BB Coin Advance Server Mobile Legends</title>
+    <title>SIBGRIZLY - Gift BB Coin Advance Server MLBB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #ff2e2e;
+            --primary-dark: #cc0000;
+            --secondary: #ff8c00;
+            --accent: #ffd700;
+            --dark: #0a0a0a;
+            --dark-card: #151515;
+            --darker: #050505;
+            --light: #ffffff;
+            --gray: #888;
+            --success: #00c853;
+            --glow: 0 0 15px rgba(255, 46, 46, 0.7);
+            --glow-light: 0 0 30px rgba(255, 46, 46, 0.4);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #0a0a0a;
-            color: #fff;
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
         
-        /* Background animasi */
-        .animated-bg {
+        /* Background dengan efek partikel */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: linear-gradient(-45deg, #0a0a0a, #1a0000, #0a0a0a, #331100);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            z-index: -3;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 46, 46, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255, 140, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 20%),
+                linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 30%, #0a0a1a 70%, #0a0a0a 100%);
         }
         
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Grid lines background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: 
+                linear-gradient(rgba(255, 46, 46, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 46, 46, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
         }
         
-        /* Partikel bergerak */
-        .particles {
+        /* Floating particles */
+        .floating-particles {
             position: fixed;
             top: 0;
             left: 0;
@@ -53,138 +80,193 @@
         
         .particle {
             position: absolute;
-            background-color: rgba(255, 69, 0, 0.2);
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
             border-radius: 50%;
-            animation: float 6s infinite ease-in-out;
+            animation: float 15s infinite linear;
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-20px) translateX(10px); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, 50px) rotate(120deg); }
+            66% { transform: translate(-20px, 80px) rotate(240deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
         }
         
+        /* Container utama */
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
         
+        /* Header */
         header {
             text-align: center;
-            padding: 20px 0 40px;
+            padding: 30px 0 50px;
+            position: relative;
         }
         
-        .logo {
+        .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
             margin-bottom: 20px;
+            gap: 20px;
         }
         
         .logo-icon {
-            color: #ff4500;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
+            color: var(--primary);
+            text-shadow: var(--glow);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: var(--glow); }
+            100% { transform: scale(1.05); text-shadow: 0 0 25px rgba(255, 46, 46, 0.9); }
         }
         
         .logo-text {
-            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
             font-weight: 900;
-            background: linear-gradient(to right, #ff4500, #ff8c00);
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
         }
         
-        .subtitle {
-            color: #ddd;
+        .tagline {
             font-size: 1.2rem;
+            color: var(--gray);
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
         
         .main-title {
-            color: #fff;
-            font-size: 2.2rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin: 25px 0;
+            color: var(--light);
+            text-shadow: 0 0 10px rgba(255, 46, 46, 0.5);
+            position: relative;
+            display: inline-block;
         }
         
-        .main-title span {
-            color: #ff4500;
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
         }
         
+        /* Card Styling */
         .card {
-            background-color: rgba(20, 20, 20, 0.85);
+            background: rgba(21, 21, 21, 0.85);
             border-radius: 15px;
-            padding: 25px;
+            padding: 30px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 69, 0, 0.3);
+            border: 1px solid rgba(255, 46, 46, 0.2);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             transition: transform 0.3s, box-shadow 0.3s;
             overflow: hidden;
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
         }
         
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 69, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(255, 46, 46, 0.2);
         }
         
         .card-title {
-            color: #ff8c00;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff4500;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .card-title i {
-            color: #ff4500;
+            color: var(--primary);
         }
         
+        /* Form Input */
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .input-label {
             display: block;
-            margin-bottom: 8px;
-            color: #ddd;
-            font-weight: 500;
+            margin-bottom: 10px;
+            color: #ccc;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .input-container {
+            position: relative;
         }
         
         .input-box {
             width: 100%;
-            padding: 15px;
-            background-color: rgba(30, 30, 30, 0.8);
-            border: 2px solid #444;
+            padding: 18px 20px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            color: var(--light);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-family: 'Exo 2', sans-serif;
         }
         
         .input-box:focus {
             outline: none;
-            border-color: #ff4500;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 46, 46, 0.3);
         }
         
-        .grid-container {
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+        
+        /* Coin Grid */
+        .coin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
         
         .coin-option {
-            background-color: rgba(30, 30, 30, 0.8);
-            border: 2px solid #444;
-            border-radius: 10px;
-            padding: 15px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -192,53 +274,78 @@
             overflow: hidden;
         }
         
+        .coin-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 46, 46, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
         .coin-option:hover {
-            border-color: #ff8c00;
-            transform: scale(1.03);
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
+        }
+        
+        .coin-option:hover::before {
+            opacity: 1;
         }
         
         .coin-option.selected {
-            border-color: #ff4500;
-            background-color: rgba(255, 69, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
+            border-color: var(--primary);
+            background: rgba(255, 46, 46, 0.1);
+            box-shadow: var(--glow-light);
+            transform: translateY(-5px);
+        }
+        
+        .coin-option.selected::before {
+            opacity: 1;
         }
         
         .coin-amount {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #ff8c00;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
         }
         
         .coin-price {
-            color: #ddd;
-            margin-top: 5px;
+            color: #ccc;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
-        .payment-methods {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        /* Payment Methods */
+        .payment-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin-top: 20px;
         }
         
-        .payment-method {
-            flex: 1;
-            min-width: 200px;
-            background-color: rgba(30, 30, 30, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            border: 2px solid #444;
-            transition: border-color 0.3s;
+        .payment-card {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255, 46, 46, 0.2);
+            transition: transform 0.3s;
         }
         
-        .payment-method:hover {
-            border-color: #ff8c00;
+        .payment-card:hover {
+            transform: translateY(-5px);
         }
         
         .payment-title {
-            color: #ff8c00;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -246,288 +353,464 @@
         
         .qr-container {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
-        .qr-code {
-            width: 180px;
-            height: 180px;
-            background-color: #fff;
-            border-radius: 10px;
-            margin: 0 auto 10px;
+        .qr-box {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000;
-            font-size: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .qr-box::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(transparent, var(--primary), transparent 30%);
+            animation: rotate 3s linear infinite;
+        }
+        
+        .qr-box img {
+            width: 90%;
+            height: 90%;
+            border-radius: 8px;
+            z-index: 1;
+            position: relative;
+            background-color: white;
             padding: 10px;
-            background-image: url('https://files.catbox.moe/b3xttn.png');
-            background-size: cover;
-            background-position: center;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .qr-note {
-            color: #aaa;
-            font-size: 0.9rem;
+            color: var(--gray);
             font-style: italic;
+            font-size: 0.9rem;
         }
         
-        .payment-detail {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #444;
+        .payment-list {
+            margin-top: 20px;
         }
         
-        .payment-info {
+        .payment-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .payment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .payment-name {
+            font-weight: 600;
+            color: #ddd;
+        }
+        
+        .payment-number {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-size: 1.1rem;
         }
         
         .copy-btn {
-            background-color: #ff4500;
-            color: white;
-            border: none;
+            background: rgba(255, 46, 46, 0.2);
+            color: var(--light);
+            border: 1px solid var(--primary);
             padding: 8px 15px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 5px;
         }
         
         .copy-btn:hover {
-            background-color: #ff8c00;
+            background: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 46, 46, 0.5);
         }
         
-        .total-section {
-            background-color: rgba(30, 30, 30, 0.9);
-            border-radius: 10px;
-            padding: 20px;
+        .copy-btn.copied {
+            background: var(--success);
+            border-color: var(--success);
+        }
+        
+        .payment-note {
             margin-top: 20px;
-            border: 2px solid #ff4500;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* Total Section */
+        .total-section {
+            background: linear-gradient(135deg, rgba(255, 46, 46, 0.1), rgba(255, 140, 0, 0.1));
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 46, 46, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: var(--glow-light);
         }
         
         .total-label {
-            font-size: 1.3rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
             color: #ddd;
         }
         
         .total-amount {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ff8c00;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Order Button */
+        .order-btn-container {
+            text-align: center;
+            margin: 40px 0;
         }
         
         .order-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(to right, #ff4500, #ff8c00);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 20px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border-radius: 10px;
+            padding: 25px 60px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 15px;
             cursor: pointer;
-            margin-top: 30px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            letter-spacing: 1px;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(255, 46, 46, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .order-btn:hover::before {
+            left: 100%;
         }
         
         .order-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 69, 0, 0.5);
+            box-shadow: 0 15px 40px rgba(255, 46, 46, 0.7);
+            letter-spacing: 3px;
         }
         
         .order-btn:active {
             transform: translateY(-2px);
         }
         
+        .order-btn:disabled {
+            background: linear-gradient(135deg, #555, #777);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            letter-spacing: 2px;
+        }
+        
+        .order-btn:disabled:hover::before {
+            left: -100%;
+        }
+        
+        /* Warning Box */
         .warning-box {
-            background-color: rgba(255, 69, 0, 0.1);
-            border-left: 5px solid #ff4500;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #aaa;
-            font-size: 0.9rem;
+            background: rgba(255, 46, 46, 0.1);
+            border-left: 5px solid var(--primary);
+            padding: 25px;
+            border-radius: 10px;
             margin-top: 30px;
-            border-top: 1px solid #333;
+            position: relative;
+            overflow: hidden;
         }
         
-        @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .payment-methods {
-                flex-direction: column;
-            }
-            
-            .logo-text {
-                font-size: 2rem;
-            }
-            
-            .main-title {
-                font-size: 1.8rem;
-            }
+        .warning-box::before {
+            content: '!';
+            position: absolute;
+            top: -30px;
+            left: 10px;
+            font-size: 8rem;
+            color: rgba(255, 46, 46, 0.1);
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        @media (max-width: 480px) {
-            .container {
-                padding: 10px;
+        .warning-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+        }
+        
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .coin-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
             
-            .card {
-                padding: 20px 15px;
-            }
-            
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
+            .payment-container {
+                grid-template-columns: 1fr;
             }
             
             .total-section {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
                 text-align: center;
             }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2.8rem;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .total-amount {
+                font-size: 2.5rem;
+            }
+            
+            .order-btn {
+                padding: 20px 40px;
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logo-text {
+                font-size: 2.2rem;
+            }
+            
+            .coin-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .qr-box {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 20, 20, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
-    <!-- Background animasi -->
-    <div class="animated-bg"></div>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    <div class="grid-bg"></div>
+    <div class="floating-particles" id="particles"></div>
     
-    <!-- Partikel bergerak -->
-    <div class="particles" id="particles"></div>
-    
+    <!-- Main Container -->
     <div class="container">
         <header>
-            <div class="logo">
-                <i class="fas fa-paw logo-icon"></i>
+            <div class="logo-container">
+                <i class="fas fa-crown logo-icon"></i>
                 <h1 class="logo-text">SIBGRIZLY</h1>
             </div>
-            <p class="subtitle">Gift BB Coin Advance Server</p>
-            <h2 class="main-title">MOBILE <span>LEGENDS</span></h2>
+            <p class="tagline">PREMIUM GIFT BB COIN SERVICE</p>
+            <h2 class="main-title">ADVANCE SERVER MOBILE LEGENDS</h2>
         </header>
         
-        <!-- Form Data Pengguna -->
+        <!-- User Data Form -->
         <div class="card">
-            <h3 class="card-title"><i class="fas fa-user"></i> Data Akun Mobile Legends</h3>
+            <h3 class="card-title"><i class="fas fa-id-card"></i> DATA AKUN MOBILE LEGENDS</h3>
             <div class="input-group">
-                <label class="input-label">ID MLBB</label>
-                <input type="text" class="input-box" id="mlbbId" placeholder="Contoh: 123456789" maxlength="20">
+                <label class="input-label">ID MOBILE LEGENDS</label>
+                <div class="input-container">
+                    <input type="text" class="input-box" id="mlbbId" placeholder="Masukkan ID MLBB (Contoh: 123456789)" maxlength="20">
+                    <i class="fas fa-gamepad input-icon"></i>
+                </div>
             </div>
             <div class="input-group">
-                <label class="input-label">Nickname</label>
-                <input type="text" class="input-box" id="nickname" placeholder="Contoh: ProPlayerz" maxlength="30">
+                <label class="input-label">NICKNAME</label>
+                <div class="input-container">
+                    <input type="text" class="input-box" id="nickname" placeholder="Masukkan Nickname (Contoh: ProPlayerz)" maxlength="30">
+                    <i class="fas fa-user input-icon"></i>
+                </div>
             </div>
         </div>
         
-        <!-- Daftar Harga BB Coin -->
+        <!-- BB Coin Selection -->
         <div class="card">
-            <h3 class="card-title"><i class="fas fa-coins"></i> Pilih Jumlah BB Coin</h3>
-            <p class="input-label">Silakan pilih jumlah BB Coin yang ingin dibeli:</p>
-            <div class="grid-container" id="coinOptions">
-                <!-- Opsi BB Coin akan diisi oleh JavaScript -->
+            <h3 class="card-title"><i class="fas fa-coins"></i> PILIH JUMLAH BB COIN</h3>
+            <p class="input-label">Pilih paket BB Coin yang ingin Anda beli:</p>
+            <div class="coin-grid" id="coinOptions">
+                <!-- Coin options will be populated by JavaScript -->
             </div>
         </div>
         
-        <!-- Metode Pembayaran -->
+        <!-- Payment Methods -->
         <div class="card">
-            <h3 class="card-title"><i class="fas fa-credit-card"></i> Metode Pembayaran</h3>
-            <div class="payment-methods">
+            <h3 class="card-title"><i class="fas fa-credit-card"></i> METODE PEMBAYARAN</h3>
+            <div class="payment-container">
                 <!-- QRIS -->
-                <div class="payment-method">
+                <div class="payment-card">
                     <h4 class="payment-title"><i class="fas fa-qrcode"></i> QRIS</h4>
                     <div class="qr-container">
-                        <div class="qr-code"></div>
-                        <p class="qr-note">(Tekan lama untuk download QR code)</p>
+                        <div class="qr-box">
+                            <img src="https://files.catbox.moe/b3xttn.png" alt="QR Code Pembayaran">
+                        </div>
+                        <p class="qr-note">(Tekan lama untuk mendownload QR code)</p>
                     </div>
                 </div>
                 
-                <!-- E-Wallet -->
-                <div class="payment-method">
-                    <h4 class="payment-title"><i class="fas fa-wallet"></i> E-Wallet & Transfer Bank</h4>
-                    <div class="payment-detail">
-                        <div class="payment-info">
-                            <span>OVO</span>
-                            <span>087762133437</span>
+                <!-- E-Wallet & Bank -->
+                <div class="payment-card">
+                    <h4 class="payment-title"><i class="fas fa-wallet"></i> E-WALLET & TRANSFER BANK</h4>
+                    <div class="payment-list">
+                        <div class="payment-item">
+                            <span class="payment-name">OVO</span>
+                            <span class="payment-number">087762133437</span>
                             <button class="copy-btn" data-number="087762133437">
                                 <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
-                        <div class="payment-info">
-                            <span>DANA</span>
-                            <span>087762133437</span>
+                        <div class="payment-item">
+                            <span class="payment-name">DANA</span>
+                            <span class="payment-number">087762133437</span>
                             <button class="copy-btn" data-number="087762133437">
                                 <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
-                        <div class="payment-info">
-                            <span>GOPAY</span>
-                            <span>087862600313</span>
+                        <div class="payment-item">
+                            <span class="payment-name">GOPAY</span>
+                            <span class="payment-number">087862600313</span>
                             <button class="copy-btn" data-number="087862600313">
                                 <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
-                        <div class="payment-info">
-                            <span>ShopeePay</span>
-                            <span>087862600313</span>
+                        <div class="payment-item">
+                            <span class="payment-name">SHOPEEPAY</span>
+                            <span class="payment-number">087862600313</span>
                             <button class="copy-btn" data-number="087862600313">
                                 <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
-                        <div class="payment-info">
-                            <span>SeaBank</span>
-                            <span>901125967718</span>
+                        <div class="payment-item">
+                            <span class="payment-name">SEABANK</span>
+                            <span class="payment-number">901125967718</span>
                             <button class="copy-btn" data-number="901125967718">
                                 <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
-                        <div class="payment-info">
-                            <span>Bank Jago</span>
-                            <span>102672395274</span>
+                        <div class="payment-item">
+                            <span class="payment-name">BANK JAGO</span>
+                            <span class="payment-number">102672395274</span>
                             <button class="copy-btn" data-number="102672395274">
                                 <i class="fas fa-copy"></i> Salin
                             </button>
                         </div>
-                        <p style="margin-top: 15px; color: #aaa; font-size: 0.9rem;">a/n SIBRA AMULISI</p>
                     </div>
+                    <p class="payment-note">a/n SIBRA AMULISI</p>
                 </div>
             </div>
         </div>
         
-        <!-- Total Pembayaran -->
+        <!-- Total Payment -->
         <div class="total-section">
-            <div class="total-label">Total Pembayaran:</div>
+            <div class="total-label">TOTAL PEMBAYARAN:</div>
             <div class="total-amount" id="totalAmount">Rp 0</div>
         </div>
         
-        <!-- Tombol Pesan -->
-        <button class="order-btn" id="orderBtn">
-            <i class="fas fa-shopping-cart"></i> PESAN SEKARANG
-        </button>
-        
-        <!-- Peringatan -->
-        <div class="warning-box">
-            <p><strong>Perhatian:</strong> Setelah melakukan pembayaran, harap segera kirim bukti transfer ke WhatsApp: <strong>6287862600313</strong>. Format data pembelian akan terkirim otomatis setelah Anda menekan tombol "PESAN SEKARANG".</p>
+        <!-- Order Button -->
+        <div class="order-btn-container">
+            <button class="order-btn" id="orderBtn" disabled>
+                <i class="fas fa-bolt"></i> PESAN SEKARANG
+            </button>
         </div>
         
-        <footer class="footer">
-            <p>&copy; 2023 SIBGRIZLY - Gift BB Coin Advance Server Mobile Legends</p>
-            <p>Hanya untuk server advance Mobile Legends</p>
+        <!-- Warning Box -->
+        <div class="warning-box">
+            <div class="warning-title">PENTING!</div>
+            <p>Setelah melakukan pembayaran, harap segera kirim bukti transfer ke WhatsApp: <strong>6287862600313</strong>. Format data pembelian akan terkirim otomatis setelah Anda menekan tombol "PESAN SEKARANG". Pastikan data yang dimasukkan sudah benar sebelum melakukan pemesanan.</p>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-logo">SIBGRIZLY</div>
+            <p>Gift BB Coin Advance Server Mobile Legends</p>
+            <p>&copy; 2023 SIBGRIZLY. Layanan resmi untuk Advance Server Mobile Legends.</p>
+            <p style="margin-top: 20px; color: #666; font-size: 0.8rem;">*BB Coin hanya dapat digunakan di Advance Server Mobile Legends</p>
         </footer>
     </div>
     
@@ -556,66 +839,68 @@
             { amount: "100K BBC", price: 400000 }
         ];
         
-        // Variabel global
+        // State variables
         let selectedCoin = null;
         let totalPrice = 0;
         
-        // Inisialisasi halaman
+        // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            // Membuat partikel bergerak
+            // Create floating particles
             createParticles();
             
-            // Membuat opsi BB Coin
+            // Render coin options
             renderCoinOptions();
             
-            // Menambahkan event listener untuk tombol salin
+            // Setup copy buttons
             setupCopyButtons();
             
-            // Menambahkan event listener untuk tombol pesan
+            // Setup order button
             document.getElementById('orderBtn').addEventListener('click', placeOrder);
             
-            // Update total secara real-time saat input berubah
+            // Update order button state on input
             document.getElementById('mlbbId').addEventListener('input', updateOrderButton);
             document.getElementById('nickname').addEventListener('input', updateOrderButton);
+            
+            // Add input validation
+            setupInputValidation();
         });
         
-        // Fungsi untuk membuat partikel bergerak
+        // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+            const particleCount = 25;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Ukuran dan posisi acak
-                const size = Math.random() * 20 + 5;
+                // Random properties
+                const size = Math.random() * 10 + 5;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
+                const opacity = Math.random() * 0.3 + 0.1;
+                const duration = Math.random() * 20 + 10;
                 const delay = Math.random() * 5;
-                const duration = Math.random() * 10 + 10;
                 
+                // Apply styles
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.left = `${posX}%`;
                 particle.style.top = `${posY}%`;
-                particle.style.animationDelay = `${delay}s`;
+                particle.style.opacity = opacity;
                 particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
                 
-                // Warna acak dalam tema
-                const colors = [
-                    'rgba(255, 69, 0, 0.2)',
-                    'rgba(255, 140, 0, 0.2)',
-                    'rgba(255, 255, 255, 0.1)',
-                    'rgba(255, 69, 0, 0.1)'
-                ];
-                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                // Random color based on theme
+                const colors = ['#ff2e2e', '#ff8c00', '#ffd700'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
                 
                 particlesContainer.appendChild(particle);
             }
         }
         
-        // Fungsi untuk merender opsi BB Coin
+        // Render coin options
         function renderCoinOptions() {
             const container = document.getElementById('coinOptions');
             container.innerHTML = '';
@@ -632,12 +917,12 @@
                 `;
                 
                 option.addEventListener('click', function() {
-                    // Hapus pilihan sebelumnya
+                    // Remove previous selection
                     document.querySelectorAll('.coin-option').forEach(opt => {
                         opt.classList.remove('selected');
                     });
                     
-                    // Tandai opsi yang dipilih
+                    // Select this option
                     this.classList.add('selected');
                     selectedCoin = {
                         amount: this.dataset.amount,
@@ -653,37 +938,60 @@
             });
         }
         
-        // Fungsi untuk mengatur tombol salin
+        // Setup copy buttons
         function setupCopyButtons() {
             document.querySelectorAll('.copy-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const number = this.getAttribute('data-number');
                     copyToClipboard(number);
                     
-                    // Ubah teks tombol sementara
-                    const originalText = this.innerHTML;
+                    // Visual feedback
+                    const originalHTML = this.innerHTML;
                     this.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                    this.style.backgroundColor = '#28a745';
+                    this.classList.add('copied');
                     
                     setTimeout(() => {
-                        this.innerHTML = originalText;
-                        this.style.backgroundColor = '';
+                        this.innerHTML = originalHTML;
+                        this.classList.remove('copied');
                     }, 2000);
                 });
             });
         }
         
-        // Fungsi untuk menyalin ke clipboard
+        // Copy text to clipboard
         function copyToClipboard(text) {
+            // Create temporary element
             const tempInput = document.createElement('input');
             tempInput.value = text;
             document.body.appendChild(tempInput);
+            
+            // Select and copy
             tempInput.select();
+            tempInput.setSelectionRange(0, 99999); // For mobile devices
             document.execCommand('copy');
+            
+            // Clean up
             document.body.removeChild(tempInput);
         }
         
-        // Fungsi untuk memperbarui total
+        // Setup input validation
+        function setupInputValidation() {
+            const mlbbIdInput = document.getElementById('mlbbId');
+            const nicknameInput = document.getElementById('nickname');
+            
+            // MLBB ID validation (only numbers)
+            mlbbIdInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            
+            // Nickname validation (no special characters)
+            nicknameInput.addEventListener('input', function() {
+                // Allow letters, numbers, spaces, and some special chars for nicknames
+                this.value = this.value.replace(/[^a-zA-Z0-9\s\-_]/g, '');
+            });
+        }
+        
+        // Update total amount
         function updateTotal() {
             if (selectedCoin) {
                 totalPrice = selectedCoin.price;
@@ -694,7 +1002,7 @@
             }
         }
         
-        // Fungsi untuk memperbarui status tombol pesan
+        // Update order button state
         function updateOrderButton() {
             const mlbbId = document.getElementById('mlbbId').value.trim();
             const nickname = document.getElementById('nickname').value.trim();
@@ -702,52 +1010,93 @@
             
             if (mlbbId && nickname && selectedCoin) {
                 orderBtn.disabled = false;
-                orderBtn.style.opacity = '1';
-                orderBtn.style.cursor = 'pointer';
             } else {
                 orderBtn.disabled = true;
-                orderBtn.style.opacity = '0.7';
-                orderBtn.style.cursor = 'not-allowed';
             }
         }
         
-        // Fungsi untuk memproses pesanan
+        // Place order function
         function placeOrder() {
             const mlbbId = document.getElementById('mlbbId').value.trim();
             const nickname = document.getElementById('nickname').value.trim();
             
+            // Validation
             if (!mlbbId || !nickname || !selectedCoin) {
                 alert('Harap lengkapi semua data dan pilih jumlah BB Coin!');
                 return;
             }
             
-            // Format pesan untuk WhatsApp
+            // Create WhatsApp message
             const message = `Halo SIBGRIZLY, saya ingin membeli BB Coin Advance Server Mobile Legends dengan detail berikut:%0A%0A` +
-                           `📱 ID MLBB: ${mlbbId}%0A` +
-                           `👤 Nickname: ${nickname}%0A` +
-                           `🪙 Jumlah BB Coin: ${selectedCoin.amount}%0A` +
-                           `💰 Total Pembayaran: Rp ${selectedCoin.price.toLocaleString('id-ID')}%0A%0A` +
+                           `📱 *ID MLBB*: ${mlbbId}%0A` +
+                           `👤 *Nickname*: ${nickname}%0A` +
+                           `🪙 *Jumlah BB Coin*: ${selectedCoin.amount}%0A` +
+                           `💰 *Total Pembayaran*: Rp ${selectedCoin.price.toLocaleString('id-ID')}%0A%0A` +
                            `Saya telah melakukan transfer pembayaran.`;
             
-            // Nomor WhatsApp tujuan
+            // WhatsApp URL
             const phoneNumber = '6287862600313';
-            
-            // Buat link WhatsApp
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
             
-            // Buka WhatsApp di tab baru
+            // Open WhatsApp in new tab
             window.open(whatsappUrl, '_blank');
             
-            // Reset form
-            resetForm();
+            // Show confirmation
+            showOrderConfirmation();
         }
         
-        // Fungsi untuk mereset form
+        // Show order confirmation
+        function showOrderConfirmation() {
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #151515, #0a0a0a); padding: 40px; border-radius: 20px; text-align: center; max-width: 500px; width: 90%; border: 2px solid #ff2e2e; box-shadow: 0 0 40px rgba(255, 46, 46, 0.5);">
+                    <i class="fas fa-check-circle" style="font-size: 5rem; color: #00c853; margin-bottom: 20px;"></i>
+                    <h2 style="color: #ffd700; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">PESANAN BERHASIL DIBUAT!</h2>
+                    <p style="margin-bottom: 20px; line-height: 1.6;">Format pesanan telah disiapkan. Silakan lanjutkan dengan mengirim bukti transfer di WhatsApp yang terbuka. Pastikan untuk menyertakan bukti transfer.</p>
+                    <button id="closeModal" style="background: linear-gradient(135deg, #ff2e2e, #ff8c00); color: white; border: none; padding: 15px 40px; font-size: 1.2rem; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px;">TUTUP</button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal button
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.body.removeChild(modal);
+                
+                // Reset form
+                resetForm();
+            });
+            
+            // Close on background click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                    resetForm();
+                }
+            });
+        }
+        
+        // Reset form
         function resetForm() {
             document.getElementById('mlbbId').value = '';
             document.getElementById('nickname').value = '';
             
-            // Hapus pilihan coin
+            // Remove coin selection
             document.querySelectorAll('.coin-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
@@ -755,9 +1104,6 @@
             selectedCoin = null;
             updateTotal();
             updateOrderButton();
-            
-            // Tampilkan pesan konfirmasi
-            alert('Terima kasih! Format pesanan telah disiapkan. Silakan lanjutkan dengan mengirim bukti transfer di WhatsApp yang terbuka.');
         }
     </script>
 </body>
