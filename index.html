@@ -180,60 +180,6 @@
             font-weight: bold;
         }
         
-        /* Promo box menggantikan slider */
-        .promo-container {
-            background: rgba(10, 15, 35, 0.7);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(0, 100, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-        
-        .promo-title {
-            color: #4dabff;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .promo-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .promo-item {
-            background: rgba(20, 25, 50, 0.7);
-            border-radius: 10px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-        }
-        
-        .promo-item:hover {
-            border-color: rgba(0, 100, 255, 0.7);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .promo-icon {
-            font-size: 2.5rem;
-            color: #ff2a2a;
-            margin-bottom: 15px;
-        }
-        
-        .promo-text {
-            color: #ddd;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-        
         /* Form section */
         .form-container {
             display: grid;
@@ -621,10 +567,6 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .promo-content {
-                grid-template-columns: 1fr;
-            }
-            
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -661,37 +603,6 @@
             </div>
             <p class="subtitle">Gift BB Coin Advance Server Mobile Legends - <span class="highlight">Proses Manual</span></p>
         </header>
-        
-        <!-- Promo box menggantikan slider -->
-        <section class="promo-container">
-            <h2 class="promo-title"><i class="fas fa-gift"></i> Promo Spesial BB Coin</h2>
-            <div class="promo-content">
-                <div class="promo-item">
-                    <div class="promo-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div class="promo-text">
-                        <strong>Proses Cepat</strong> - Pesanan diproses maksimal 1 jam setelah konfirmasi pembayaran
-                    </div>
-                </div>
-                <div class="promo-item">
-                    <div class="promo-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="promo-text">
-                        <strong>Aman & Terpercaya</strong> - Sudah melayani ribuan pemain Mobile Legends
-                    </div>
-                </div>
-                <div class="promo-item">
-                    <div class="promo-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <div class="promo-text">
-                        <strong>Customer Service 24/7</strong> - Siap membantu kapan saja melalui WhatsApp
-                    </div>
-                </div>
-            </div>
-        </section>
         
         <!-- Form utama -->
         <div class="form-container">
